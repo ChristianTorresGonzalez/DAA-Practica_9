@@ -56,8 +56,6 @@ using namespace std;
 		return numero_nodos;
 	}
 	
-	
-	
 	// int Grafo_::get_val(int i)
 	// {
 	// 	return vector_nodos[i].get_nodo();
