@@ -15,7 +15,8 @@ int main(int argc,char *argv[])
   Grafo_ grafo;
 
   Gestor_Archivos_ gestor_archivos(entrada, salida, grafo);
-  gestor_archivos.mostrar_aristas();
+  // gestor_archivos.mostrar_aristas();
 
   cout << grafo.get_numero_nodos();
+  grafo.imprimir_grafo();
 }

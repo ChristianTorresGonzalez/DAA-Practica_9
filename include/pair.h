@@ -4,19 +4,19 @@
 
 using namespace std;
 
-class pair_t
+class Pair_t_
 {
 	private:
 		int nodo_hijo;
 		float coste;
 
 	public:
-		pair_t(void):
+		Pair_t_(void):
 			nodo_hijo(0),
 			coste(0.0)
 			{}
 
-		pair_t(int a,float b):
+		Pair_t_(int a,float b):
 			nodo_hijo(a),
 			coste(b)
 			{}

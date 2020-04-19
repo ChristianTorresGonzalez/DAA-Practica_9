@@ -13,24 +13,24 @@ class Grafo_
 {
 	public:
 		int numero_nodos;
-		vector<nodo_> vector_nodos;
+		vector<Nodo_> vector_nodos;
 		vector<Arista_> vector_aristas;
 		
 	public:
 		Grafo_(void);
 		Grafo_(int , vector<Arista_> );
+
+		void construir_nodos(void);
 		
 		void set_aristas(vector<Arista_> );
-
-		// void insertar_sucesor(int ,pair_t );
-		// void insertar(nodo_ );
+		void insertar_nodo(Nodo_ );
     
 		int get_numero_nodos(void);
 		// int get_val(int a);
 		// float get_coste_hijo(int );
 		// nodo_ get_nodo(int );
 		
-		// void imprimir_conjunto(void);
+		void imprimir_grafo(void);
 		// void insertar_archivo(string );
 		
 		// nodo_ operator [](int );

@@ -5,67 +5,67 @@
 
 using namespace std;
 
-	nodo_::nodo_(void):
+	Nodo_::Nodo_(void):
 		nodo(0),
 		generado(0),
 		inspeccionado(0)
 		{
-			sucesores.resize(0);
+			aristas.resize(0);
 		}
 		
-	nodo_::nodo_(int nodo):
+	Nodo_::Nodo_(int nodo):
 		nodo(nodo),
 		generado(0),
 		inspeccionado(0)
 		{
-			sucesores.resize(0);
+			aristas.resize(0);
 		}	
 	
-	void nodo_::insert(int a)
+	void Nodo_::insert(int a)
 	{
 		nodo = a;
 	}
-	void nodo_::insertar_nodo_hijo(pair_t sucesor)
+	void Nodo_::insertar_arista(Pair_t_ sucesor)
 	{
-		sucesores.push_back(sucesor);
+		aristas.push_back(sucesor);
 	}
 	
-	int nodo_::get_nodo(void)
+	int Nodo_::get_identificador_nodo(void)
 	{
 		return nodo;
 	}
 	
-	int nodo_::get_size_sucesores(void)
+	int Nodo_::get_cantidad_aristas(void)
 	{
-		return sucesores.size();
+		return aristas.size();
 	}
 	
-	int nodo_::get_nodo_hijo(int a)
+	int Nodo_::get_destino_arista(int a)
 	{
-		return sucesores[a].get_hijo();
+		return aristas[a].get_hijo();
 	}
 	
-	float nodo_::get_coste_hijo(int a)
+	float Nodo_::get_coste_arista(int a)
 	{
-		return sucesores[a].get_coste_pair();
+		return aristas[a].get_coste_pair();
 	}
 	
-	pair_t nodo_::get_sucesores(int a)
+	Pair_t_ Nodo_::get_sucesores(int a)
 	{
-		return sucesores[a];
+		return aristas[a];
 	}
 	
-	bool nodo_::get_inspeccionado(void)
+	bool Nodo_::get_inspeccionado(void)
 	{
 		return inspeccionado;
 	}
 	
-	void nodo_::set_inspeccionado(bool a)
+	void Nodo_::set_inspeccionado(bool a)
 	{
 		inspeccionado = a;
 	}
 	
-	bool nodo_::is_inspeccionado(void)
+	bool Nodo_::is_inspeccionado(void)
 	{
 		if (inspeccionado == 0)
 			return false;
@@ -73,7 +73,7 @@ using namespace std;
 			return true;
 	}
 	
-	bool nodo_::operator ==(nodo_ b)
+	bool Nodo_::operator ==(Nodo_ b)
 	{
 		if (this -> nodo == b.nodo)
 			return true;

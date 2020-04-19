@@ -7,31 +7,34 @@
 
 using namespace std;
 
-class nodo_
+class Nodo_
 {
 	private:
 		short int nodo;
 		bool generado;
 		bool inspeccionado;
 		
-		vector<pair_t> sucesores;
+		vector<Pair_t_> aristas;
 		
 	public:
-		nodo_(void);
-		nodo_(int );
+		Nodo_(void);
+		Nodo_(int );
 		
 		void insert(int );
 		
-		void insertar_nodo_hijo(pair_t );
-		int get_nodo(void);
-		int get_size_sucesores(void);
-		int get_nodo_hijo(int );
+		void insertar_arista(Pair_t_ );
+
+		int get_identificador_nodo(void);
+		int get_cantidad_aristas(void);
 		bool get_inspeccionado(void);
-		float get_coste_hijo(int );
-		pair_t get_sucesores(int );
+		
+		int get_destino_arista(int );
+		float get_coste_arista(int );
+
+		Pair_t_ get_sucesores(int );
 		
 		void set_inspeccionado(bool);
 		bool is_inspeccionado(void);
 		
-		bool operator ==(nodo_ );
+		bool operator ==(Nodo_ );
 };

@@ -12,20 +12,39 @@ using namespace std;
 		}
 
 	Grafo_::Grafo_(int nodos, vector<Arista_> aristas):
-		numero_nodos(nodos)
+		numero_nodos(nodos),
+		vector_aristas(aristas)
 		{
-			vector_nodos.resize(nodos);
+			construir_nodos();
 		}
+
+	void Grafo_::construir_nodos(void)
+	{
+		int inicio = 0;
+		for (int i = 1; i <= numero_nodos; i++)
+		{
+			Nodo_ nodo(i);
+
+			for (int j = inicio; j < (inicio + numero_nodos - 1); j++)
+			{
+				Pair_t_ arista(vector_aristas[j].get_nodo_final(), vector_aristas[j].get_coste());
+				nodo.insertar_arista(arista);
+			}
+			
+			insertar_nodo(nodo);
+			inicio += numero_nodos - 1;
+		}
+	}
 
 	void Grafo_::set_aristas(vector<Arista_> aristas)
 	{
 		vector_aristas = aristas;
 	}
 	
-	// void Grafo_::insertar(nodo_ nodos)
-	// {
-	// 	vector_nodos.push_back(nodos);
-	// }
+	void Grafo_::insertar_nodo(Nodo_ nodo)
+	{
+		vector_nodos.push_back(nodo);
+	}
 	
 	// void Grafo_::insertar_sucesor(int i,pair_t nodos)
 	// {
@@ -58,3 +77,18 @@ using namespace std;
 	// {
 	// 	return vector_nodos[i];
 	// }
+
+	void Grafo_::imprimir_grafo(void)
+	{
+		for (int nodo = 0; nodo < vector_nodos.size(); nodo++)
+		{
+			cout << "Nodo: " << vector_nodos[nodo].get_identificador_nodo() << endl;
+			for (int arista = 0; arista < vector_nodos[nodo].get_cantidad_aristas(); arista++)
+			{
+				cout << "	Arista " << arista + 1 << ": Nodo_destino: " << vector_nodos[nodo].get_destino_arista(arista) <<
+				        " => " << vector_nodos[nodo].get_coste_arista(arista) << endl;
+			}
+
+			cout << "---------------------------------------------------------------------" << endl;
+		}
+	}
