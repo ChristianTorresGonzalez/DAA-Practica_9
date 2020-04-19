@@ -31,7 +31,6 @@ class Grafo_
 		// nodo_ get_nodo(int );
 		
 		void imprimir_grafo(void);
-		// void insertar_archivo(string );
 		
 		// nodo_ operator [](int );
 };
