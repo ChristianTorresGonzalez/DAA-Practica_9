@@ -18,6 +18,18 @@ using namespace std;
 			construir_nodos();
 		}
 
+// ---------------------------------------------------------------------------------------------
+// ------------------------------Constructor de los nodos del Grafo-----------------------------
+// ---------------------------------------------------------------------------------------------
+	/**
+	 * Funcion encargada de construir los nodos y sus aristas, es decir, se encarga
+	 * de, una vez le pasa la clase gestora el conjunto de aristas que contiene el
+	 * archivo introducido, esta funcion se encarga de clasificar cada arista en su
+	 * correspondiente nodo para posterioremente almacenarla
+	 * Por ejemplo: [(Arista_1|Nodo_origen = 1|Nodo_destino = 2|Distancia = 235)|...]
+	 * esta funcion, clasifica esa arista que contiene nuestro vector de aristas, pasado
+	 * al constructor de la clase y crear el nodo correspondiente a esa arista y almacenarla
+	*/
 	void Grafo_::construir_nodos(void)
 	{
 		int inicio = 0;
@@ -27,7 +39,7 @@ using namespace std;
 
 			for (int j = inicio; j < (inicio + numero_nodos - 1); j++)
 			{
-				Pair_t_ arista(vector_aristas[j].get_nodo_final(), vector_aristas[j].get_coste());
+				Arista_ arista(vector_aristas[j].get_nodo_inicial(), vector_aristas[j].get_nodo_destino(), vector_aristas[j].get_coste_arista());
 				nodo.insertar_arista(arista);
 			}
 			
@@ -36,6 +48,9 @@ using namespace std;
 		}
 	}
 
+// ----------------------------------------------------------------------------------------------
+// ----------------------------------------Metodos setter----------------------------------------
+// ----------------------------------------------------------------------------------------------
 	void Grafo_::set_aristas(vector<Arista_> aristas)
 	{
 		vector_aristas = aristas;
@@ -45,37 +60,23 @@ using namespace std;
 	{
 		vector_nodos.push_back(nodo);
 	}
-	
-	// void Grafo_::insertar_sucesor(int i,pair_t nodos)
-	// {
-	// 	vector_nodos[i].insertar_nodo_hijo(nodos);
-	// }
-	
+
+// ----------------------------------------------------------------------------------------------
+// ----------------------------------------Metodos getter----------------------------------------
+// ----------------------------------------------------------------------------------------------	
 	int Grafo_::get_numero_nodos(void)
 	{
 		return numero_nodos;
 	}
-	
-	// int Grafo_::get_val(int i)
-	// {
-	// 	return vector_nodos[i].get_nodo();
-	// }
-	
-	// float Grafo_::get_coste_hijo(int a)
-	// {
-	// 	return get_coste_hijo(a);
-	// }
-	
-	// nodo_ Grafo_::get_nodo(int a)
-	// {
-	// 	return vector_nodos[a];
-	// }
-	
-	// nodo_ Grafo_::operator [](int i)
-	// {
-	// 	return vector_nodos[i];
-	// }
 
+	Nodo_ Grafo_::get_nodo(int posicion)
+	{
+		return vector_nodos[posicion];
+	}
+
+// ----------------------------------------------------------------------------------------
+// ------------------------------ Metodo de impresion del grafo ---------------------------
+// ----------------------------------------------------------------------------------------
 	void Grafo_::imprimir_grafo(void)
 	{
 		for (int nodo = 0; nodo < vector_nodos.size(); nodo++)

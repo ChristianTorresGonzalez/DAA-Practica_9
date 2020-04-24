@@ -18,6 +18,14 @@
 			cargar_datos(grafo);
 		}
 
+//--------------------------------------------------------------------------------------------	
+//----------------------------------Funcion almacenar los datos-------------------------------	
+//--------------------------------------------------------------------------------------------	
+	/**
+	 * @brief Funcion encargadad de cargar los datos del archivo de entrada a una variable
+	 * y ya desde ahi, cargarlos en el grafo, que se ha pasado como referencia
+	 * @param grafo Grafo que se va a utilizar en el problema
+	 */
 	void Gestor_Archivos_::cargar_datos(Grafo_ &grafo)
 	{
 		int numero_nodos;
@@ -48,8 +56,16 @@
 
 	}
 	
-//------------------------------------------------------------------------------------------------------------------------------------------	
-//------------------------------------------------------------------------------------------------------------------------------------------	
+//--------------------------------------------------------------------------------------------	
+//----------------------------------Funcion para ordenar aristas------------------------------	
+//--------------------------------------------------------------------------------------------	
+	/**
+	 * @brief Funcion utilizada para ordenar del vector de aristas, ya que al almacenarlas
+	 * estas se encuentran desordenadas, ya que por cada valor del archivo implica dos
+	 * aristas que se almacenan a la vez
+	 * 
+	 * @param nodos Numero de nodas en el grafo
+	 */
 	void Gestor_Archivos_::ordenar_aristas(int nodos)
 	{
 		vector<Arista_> vector_aristas_auxiliar;
@@ -74,8 +90,12 @@
 		vector_aristas = vector_aristas_auxiliar;
 	}
 	
+	/**
+	 * @brief Funcion encargadad de mostrar todas las aristas cargadas desde el archivo
+	 */
 	void Gestor_Archivos_::mostrar_aristas(void)
 	{
 		for (int i = 0; i < vector_aristas.size(); i++)
-			cout << vector_aristas[i].get_nodo_inicial() << " - " << vector_aristas[i].get_nodo_final() << " => " << vector_aristas[i].get_coste() << endl;
+			cout << vector_aristas[i].get_nodo_inicial() << " - " << vector_aristas[i].get_nodo_destino() << " => "
+				 << vector_aristas[i].get_coste_arista() << endl;
 	}

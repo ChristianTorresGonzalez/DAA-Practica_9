@@ -26,11 +26,7 @@ class Grafo_
 		void insertar_nodo(Nodo_ );
     
 		int get_numero_nodos(void);
-		// int get_val(int a);
-		// float get_coste_hijo(int );
-		// nodo_ get_nodo(int );
+		Nodo_ get_nodo(int );
 		
 		void imprimir_grafo(void);
-		
-		// nodo_ operator [](int );
 };

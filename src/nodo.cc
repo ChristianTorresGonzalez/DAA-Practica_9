@@ -7,7 +7,6 @@ using namespace std;
 
 	Nodo_::Nodo_(void):
 		nodo(0),
-		generado(0),
 		inspeccionado(0)
 		{
 			aristas.resize(0);
@@ -15,21 +14,32 @@ using namespace std;
 		
 	Nodo_::Nodo_(int nodo):
 		nodo(nodo),
-		generado(0),
 		inspeccionado(0)
 		{
 			aristas.resize(0);
 		}	
-	
-	void Nodo_::insert(int a)
+
+// ----------------------------------------------------------------------------------------------
+// ------------------------------Metodos insert para almacenar datos-----------------------------
+// ----------------------------------------------------------------------------------------------
+	void Nodo_::insertar_identificador(int identificador)
 	{
-		nodo = a;
+		nodo = identificador;
 	}
-	void Nodo_::insertar_arista(Pair_t_ sucesor)
+
+	void Nodo_::insertar_arista(Arista_ arista)
 	{
-		aristas.push_back(sucesor);
+		aristas.push_back(arista);
 	}
-	
+
+	void Nodo_::insertar_inspeccionado(bool a)
+	{
+		inspeccionado = a;
+	}
+
+// ---------------------------------------------------------------------------------------------
+// --------------------------------- Metodos getter de la clase --------------------------------
+// ---------------------------------------------------------------------------------------------	
 	int Nodo_::get_identificador_nodo(void)
 	{
 		return nodo;
@@ -40,31 +50,24 @@ using namespace std;
 		return aristas.size();
 	}
 	
-	int Nodo_::get_destino_arista(int a)
+	int Nodo_::get_destino_arista(int indice)
 	{
-		return aristas[a].get_hijo();
+		return aristas[indice].get_nodo_destino();
 	}
 	
 	float Nodo_::get_coste_arista(int a)
 	{
-		return aristas[a].get_coste_pair();
+		return aristas[a].get_coste_arista();
 	}
 	
-	Pair_t_ Nodo_::get_sucesores(int a)
+	Arista_ Nodo_::get_arista(int a)
 	{
 		return aristas[a];
 	}
 	
-	bool Nodo_::get_inspeccionado(void)
-	{
-		return inspeccionado;
-	}
-	
-	void Nodo_::set_inspeccionado(bool a)
-	{
-		inspeccionado = a;
-	}
-	
+// --------------------------------------------------------------------------------------------------	
+// --------------------------------- Metodos para comprobar inspeccionado ---------------------------
+// --------------------------------------------------------------------------------------------------
 	bool Nodo_::is_inspeccionado(void)
 	{
 		if (inspeccionado == 0)
@@ -73,6 +76,9 @@ using namespace std;
 			return true;
 	}
 	
+// ---------------------------------------------------------------------------------------
+// ------------------------------Operador para comparar nodos-----------------------------
+// ---------------------------------------------------------------------------------------
 	bool Nodo_::operator ==(Nodo_ b)
 	{
 		if (this -> nodo == b.nodo)
