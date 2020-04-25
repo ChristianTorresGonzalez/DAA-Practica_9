@@ -41,7 +41,7 @@
         while(comparar_vectores(vector_inicial, vector_solucion) == false)
         {
             vector_solucion = vector_inicial;
-            float nueva_dispersion = calcular_dispersion_maxima(vector_inicial);
+            float nueva_dispersion = calcular_dispersion_maxima(vector_inicial, dispersion);
 
             if (nueva_dispersion >= dispersion)
             {
@@ -99,7 +99,7 @@
             vector_nodos.push_back(grafo.get_nodo(i));
             float nueva_dispersion = calcular_dispersion_media(vector_nodos);
 
-            if (nueva_dispersion > dispersion_actual)
+            if (nueva_dispersion >= dispersion_actual)
             {
                 nodo_maximo = grafo.get_nodo(i);
                 vector_nodos.push_back(nodo_maximo);
@@ -108,6 +108,8 @@
 
             vector_nodos.erase(vector_nodos.begin() + vector_nodos.size());
         }
+
+        return 0;
     }
 
     bool Algoritmo_Voraz_::comparar_vectores(vector<Nodo_> vector_inicial, vector<Nodo_> vector_solucion)

@@ -35,7 +35,7 @@ class Algoritmo_Voraz_ : public Algoritmos_
         
         Arista_ calcular_arista_maxima(void);
         float calcular_dispersion_media(vector<Nodo_> );
-        float calcular_dispersion_maxima(vector<Nodo_> &);
+        float calcular_dispersion_maxima(vector<Nodo_> &, int );
 
         bool comparar_vectores(vector<Nodo_> , vector<Nodo_> );
 
