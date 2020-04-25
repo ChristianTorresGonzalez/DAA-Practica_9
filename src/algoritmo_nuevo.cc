@@ -20,13 +20,13 @@
 #include <fstream>
 #include <string>
 
-#include "../include/algoritmo_voraz.h"    
+#include "../include/algoritmo_nuevo.h"    
     
-    Algoritmo_Voraz_::Algoritmo_Voraz_(Grafo_ grafo):
+    Algoritmo_Nuevo_::Algoritmo_Nuevo_(Grafo_ grafo):
         Algoritmos_(grafo)
         {}
 
-    void Algoritmo_Voraz_::resolver_algoritmo(void)
+    void Algoritmo_Nuevo_::resolver_algoritmo(void)
     {
         Arista_ arista = calcular_arista_maxima();
         vector<Nodo_> vector_inicial;
@@ -42,20 +42,18 @@
         {
             vector_solucion = vector_inicial;
             float nueva_dispersion = calcular_dispersion_maxima(vector_inicial, dispersion);
+            // cout << "Dispersion: " << dispersion << " - " << nueva_dispersion << endl;
 
             if (nueva_dispersion >= dispersion)
             {
                 dispersion = nueva_dispersion;
                 grafo.eliminar_nodo(vector_inicial[vector_inicial.size() - 1].get_identificador_nodo());
-            }
-            else
-            {
-                vector_inicial.erase(vector_inicial.begin() + vector_inicial.size());
+                imprimir_solucion();
             }
         }
     }
 
-    Arista_ Algoritmo_Voraz_::calcular_arista_maxima()
+    Arista_ Algoritmo_Nuevo_::calcular_arista_maxima()
     {
         float coste = 0;
         Arista_ arista_maxima;
@@ -75,7 +73,7 @@
         return arista_maxima;
     }
 
-    float Algoritmo_Voraz_::calcular_dispersion_media(vector<Nodo_> vector_nodos)
+    float Algoritmo_Nuevo_::calcular_dispersion_media(vector<Nodo_> vector_nodos)
     {
         float suma = 0;
         for (int i = 0; i < vector_nodos.size() - 1; i++)
@@ -87,22 +85,21 @@
             }
         }
         
-        return suma / vector_nodos.size();
+        return (suma / vector_nodos.size());
     }
 
-    float Algoritmo_Voraz_::calcular_dispersion_maxima(vector<Nodo_> &vector_nodos, int dispersion_actual)
+    float Algoritmo_Nuevo_::calcular_dispersion_maxima(vector<Nodo_> &vector_nodos, float dispersion_actual)
     {
-        Nodo_ nodo_maximo;
-
+        cout << dispersion_actual << endl;
         for (int i = 0; i < grafo.vector_nodos.size(); i++)            
         {
             vector_nodos.push_back(grafo.get_nodo(i));
             float nueva_dispersion = calcular_dispersion_media(vector_nodos);
+            cout << "Nueva dispersion: " << nueva_dispersion << endl;
 
             if (nueva_dispersion >= dispersion_actual)
             {
-                nodo_maximo = grafo.get_nodo(i);
-                vector_nodos.push_back(nodo_maximo);
+                // cout << "Sliendo"<< endl;
                 return nueva_dispersion;
             }
 
@@ -112,7 +109,7 @@
         return 0;
     }
 
-    bool Algoritmo_Voraz_::comparar_vectores(vector<Nodo_> vector_inicial, vector<Nodo_> vector_solucion)
+    bool Algoritmo_Nuevo_::comparar_vectores(vector<Nodo_> vector_inicial, vector<Nodo_> vector_solucion)
     {
         if (vector_inicial.size() != vector_solucion.size())
         {
@@ -131,9 +128,9 @@
         }
     }
 
-    void Algoritmo_Voraz_::imprimir_solucion()
+    void Algoritmo_Nuevo_::imprimir_solucion()
     {
-        cout << "Solucion Algoritmo Voraz: {";
+        cout << "Solucion Algoritmo Nuevo: {";
         for (int i = 0; i < vector_solucion.size(); i++)
         {
             cout << vector_solucion[i].get_identificador_nodo() << " | ";

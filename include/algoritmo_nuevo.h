@@ -24,18 +24,19 @@
 
 #include "./algoritmos.h"
 
-class Algoritmo_Voraz_ : public Algoritmos_
+class Algoritmo_Nuevo_ : public Algoritmos_
 {
     private:
         vector<Nodo_> vector_solucion;
+
     public:
-        Algoritmo_Voraz_(Grafo_ );
+        Algoritmo_Nuevo_(Grafo_ );
 
         void resolver_algoritmo(void);
         
         Arista_ calcular_arista_maxima(void);
         float calcular_dispersion_media(vector<Nodo_> );
-        float calcular_dispersion_maxima(vector<Nodo_> &, int );
+        float calcular_dispersion_maxima(vector<Nodo_> &, float );
 
         bool comparar_vectores(vector<Nodo_> , vector<Nodo_> );
 
