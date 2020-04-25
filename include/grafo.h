@@ -29,4 +29,7 @@ class Grafo_
 		Nodo_ get_nodo(int );
 		
 		void imprimir_grafo(void);
+		void imprimir_costes(void);
+
+		void eliminar_nodo(int );
 };

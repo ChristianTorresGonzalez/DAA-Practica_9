@@ -25,6 +25,8 @@ class Nodo_
 
 		int get_identificador_nodo(void);
 		int get_cantidad_aristas(void);
+
+		Arista_ find_arista(int );
 		
 		Arista_ get_arista(int );
 		int get_destino_arista(int );

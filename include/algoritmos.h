@@ -36,15 +36,3 @@ class Algoritmos_ {
         Algoritmos_(Grafo_ );
         // virtual void resolver_algoritmo(void);
 };
-
-class Algoritmo_Voraz_ : public Algoritmos_
-{
-    public:
-        Algoritmo_Voraz_(Grafo_ );
-
-        void resolver_algoritmo(void);
-        
-        Arista_ calcular_arista_maxima(void);
-        float calcular_dispersion_media(vector<Nodo_> );
-        bool comparar_vectores(vector<Nodo_> , vector<Nodo_> );
-};

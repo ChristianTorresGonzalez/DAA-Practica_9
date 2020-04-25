@@ -91,3 +91,32 @@ using namespace std;
 			cout << "---------------------------------------------------------------------" << endl;
 		}
 	}
+
+	void Grafo_::imprimir_costes(void)
+	{
+		for (int nodo = 0; nodo < vector_nodos.size(); nodo++)
+		{
+			for (int arista = 0; arista < vector_nodos[nodo].get_cantidad_aristas(); arista++)
+			{
+				cout << vector_nodos[nodo].get_coste_arista(arista) << " ";
+			}
+
+			cout << endl;
+		}
+	}
+
+// ----------------------------------------------------------------------------------------
+// ------------------------------ Metodo de eliminacion de nodos --------------------------
+// ----------------------------------------------------------------------------------------
+	void Grafo_::eliminar_nodo(int nodo)
+	{
+		for (int i = 0; i < vector_nodos.size(); i++)
+		{
+			if (vector_nodos[i].get_identificador_nodo() == nodo)
+			{
+				vector_nodos.erase(vector_nodos.begin() + i);
+			}
+		}
+	}
+
+
