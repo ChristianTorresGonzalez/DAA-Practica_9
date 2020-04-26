@@ -22,23 +22,26 @@
 #include <fstream>
 #include <string>
 
-#include "./grafo.h"
+#include "./algoritmos.h"
 
-using namespace std;
+class Algoritmo_GRASP_ : public Algoritmos_
+{
+    private:
+        int opcion;
+        int iteraciones;
+        float dispersion;
+        int size_lrc;
+        vector<Nodo_> vector_solucion;
+        vector<Nodo_> lrc;
 
-class Algoritmos_ {
     public:
-        int dispersion_media;
-        int tiempo_cpu;
-        Grafo_ grafo;
+        Algoritmo_GRASP_(Grafo_ , int , int , int );
 
-    public:
-        Algoritmos_(Grafo_ );
+        void resolver_algoritmo(void);
+        void preprocesamiento(vector<Nodo_> &);
+        void fase_constructiva(Nodo_ &);
+        bool post_procesamiento(Nodo_ &, vector<Nodo_> &);
+        void actualizar_solucion(vector<Nodo_> &);
 
-        Arista_ calcular_arista_maxima();
-        float calcular_dispersion_media(vector<Nodo_> );
-
-        bool comparar_vectores(vector<Nodo_> , vector<Nodo_> );
-        bool buscar_en_vector(Nodo_ , vector<Nodo_> );
-        // virtual void resolver_algoritmo(void);
+        void imprimir_solucion(void);
 };

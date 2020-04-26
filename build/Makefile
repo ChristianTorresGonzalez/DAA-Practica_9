@@ -7,7 +7,7 @@ LDIR =../lib
 
 LIBS=-lm
 
-_OBJ = main.o gestora.o arista.o grafo.o nodo.o algoritmos.o algoritmo_voraz.o algoritmo_nuevo.o
+_OBJ = main.o gestora.o arista.o grafo.o nodo.o algoritmos.o algoritmo_voraz.o algoritmo_nuevo.o algoritmo_grasp.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 all: algoritmos
@@ -33,7 +33,10 @@ $(ODIR)/algoritmo_voraz.o: $(ODIR)/algoritmo_voraz.cc $(IDIR)/algoritmo_voraz.h 
 $(ODIR)/algoritmo_nuevo.o: $(ODIR)/algoritmo_nuevo.cc $(IDIR)/algoritmo_nuevo.h $(ODIR)/algoritmos.o
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-$(ODIR)/main.o: $(ODIR)/main.cpp $(ODIR)/gestora.o $(ODIR)/algoritmos.o $(ODIR)/algoritmo_voraz.o
+$(ODIR)/algoritmo_grasp.o: $(ODIR)/algoritmo_grasp.cc $(IDIR)/algoritmo_grasp.h $(ODIR)/algoritmos.o
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+$(ODIR)/main.o: $(ODIR)/main.cpp $(ODIR)/gestora.o $(ODIR)/algoritmos.o $(ODIR)/algoritmo_voraz.o $(ODIR)/algoritmo_grasp.o
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 algoritmos: $(OBJ)

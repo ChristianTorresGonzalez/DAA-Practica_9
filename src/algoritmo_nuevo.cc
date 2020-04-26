@@ -42,13 +42,11 @@
         {
             vector_solucion = vector_inicial;
             float nueva_dispersion = calcular_dispersion_maxima(vector_inicial, dispersion);
-            // cout << "Dispersion: " << dispersion << " - " << nueva_dispersion << endl;
 
             if (nueva_dispersion >= dispersion)
             {
                 dispersion = nueva_dispersion;
                 grafo.eliminar_nodo(vector_inicial[vector_inicial.size() - 1].get_identificador_nodo());
-                imprimir_solucion();
             }
         }
     }
@@ -90,16 +88,13 @@
 
     float Algoritmo_Nuevo_::calcular_dispersion_maxima(vector<Nodo_> &vector_nodos, float dispersion_actual)
     {
-        cout << dispersion_actual << endl;
         for (int i = 0; i < grafo.vector_nodos.size(); i++)            
         {
             vector_nodos.push_back(grafo.get_nodo(i));
             float nueva_dispersion = calcular_dispersion_media(vector_nodos);
-            cout << "Nueva dispersion: " << nueva_dispersion << endl;
 
             if (nueva_dispersion >= dispersion_actual)
             {
-                // cout << "Sliendo"<< endl;
                 return nueva_dispersion;
             }
 

@@ -27,3 +27,77 @@
         tiempo_cpu(0),
         grafo(grafo)
         {}
+      
+    Arista_ Algoritmos_::calcular_arista_maxima()
+    {
+        float coste = 0;
+        Arista_ arista_maxima;
+
+        for (int i = 0; i < grafo.get_numero_nodos(); i++)
+        {
+            for (int j = 0; j < grafo.get_nodo(i).get_cantidad_aristas(); j++)
+            {
+                if (grafo.get_nodo(i).get_coste_arista(j) > coste)
+                {
+                    coste = grafo.get_nodo(i).get_coste_arista(j);
+                    arista_maxima = grafo.get_nodo(i).get_arista(j);
+                }
+            }
+        }
+
+        return arista_maxima;
+    }
+
+    bool Algoritmos_::comparar_vectores(vector<Nodo_> vector_inicial, vector<Nodo_> vector_solucion)
+    {
+        if (vector_inicial.size() != vector_solucion.size())
+        {
+            return false;
+        }
+        else
+        {
+            for (int i = 0; i < vector_inicial.size(); i++)
+            {
+                if (vector_inicial[i].get_identificador_nodo() != vector_solucion[i].get_identificador_nodo())
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+
+    bool Algoritmos_::buscar_en_vector(Nodo_ nodo, vector<Nodo_> vector_nodos)
+    {
+        if (vector_nodos.size() == 0)
+        {
+            return false;
+        }
+        else
+        {
+            for (int i = 0; i < vector_nodos.size(); i++)
+            {
+                if (vector_nodos[i].get_identificador_nodo() == nodo.get_identificador_nodo())
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
+
+    float Algoritmos_::calcular_dispersion_media(vector<Nodo_> vector_nodos)
+    {
+        float suma = 0;
+        for (int i = 0; i < vector_nodos.size() - 1; i++)
+        {
+            for (int j = i + 1; j < vector_nodos.size(); j++)
+            {
+                Arista_ arista = vector_nodos[i].find_arista(vector_nodos[j].get_identificador_nodo());
+                suma += arista.get_coste_arista();
+            }
+        }
+        
+        return (suma / vector_nodos.size());
+    }
