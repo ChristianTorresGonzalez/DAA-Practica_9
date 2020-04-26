@@ -28,24 +28,24 @@
 
     void Algoritmo_Voraz_::resolver_algoritmo(void)
     {
+        cronometro.start();
         Arista_ arista = calcular_arista_maxima();
-        vector<Nodo_> vector_inicial;
 
         vector_inicial.push_back(grafo.get_nodo(arista.get_nodo_inicial() - 1));
         vector_inicial.push_back(grafo.get_nodo(arista.get_nodo_destino() - 1));
         grafo.vector_nodos.erase(grafo.vector_nodos.begin() + arista.get_nodo_inicial() - 1);
         grafo.vector_nodos.erase(grafo.vector_nodos.begin() + arista.get_nodo_destino() - 2);
 
-        float dispersion = calcular_dispersion_media(vector_inicial);
+        dispersion_media = calcular_dispersion_media(vector_inicial);
 
         while(comparar_vectores(vector_inicial, vector_solucion) == false)
         {
             vector_solucion = vector_inicial;
-            float nueva_dispersion = calcular_dispersion_maxima(vector_inicial);
+            float nueva_dispersion = calcular_dispersion_maxima();
 
-            if (nueva_dispersion >= dispersion)
+            if (nueva_dispersion >= dispersion_media)
             {
-                dispersion = nueva_dispersion;
+                dispersion_media = nueva_dispersion;
                 grafo.eliminar_nodo(vector_inicial[vector_inicial.size() - 1].get_identificador_nodo());
             }
             else
@@ -53,17 +53,19 @@
                 vector_inicial.erase(vector_inicial.begin() + vector_inicial.size());
             }
         }
+
+        cronometro.end();
     }
 
-    float Algoritmo_Voraz_::calcular_dispersion_maxima(vector<Nodo_> &vector_nodos)
+    float Algoritmo_Voraz_::calcular_dispersion_maxima()
     {
         float dispersion = 0;
         Nodo_ nodo_maximo;
 
         for (int i = 0; i < grafo.vector_nodos.size(); i++)            
         {
-            vector_nodos.push_back(grafo.get_nodo(i));
-            float nueva_dispersion = calcular_dispersion_media(vector_nodos);
+            vector_inicial.push_back(grafo.get_nodo(i));
+            float nueva_dispersion = calcular_dispersion_media(vector_inicial);
 
             if (nueva_dispersion > dispersion)
             {
@@ -71,10 +73,10 @@
                 nodo_maximo = grafo.get_nodo(i);
             }
 
-            vector_nodos.erase(vector_nodos.begin() + vector_nodos.size());
+            vector_inicial.erase(vector_inicial.begin() + vector_inicial.size());
         }
 
-        vector_nodos.push_back(nodo_maximo);
+        vector_inicial.push_back(nodo_maximo);
 
         return dispersion;
     }
@@ -88,4 +90,6 @@
         }
 
         cout << "}" << endl;
+        cout << "Tiempo de CPU: " << cronometro.tiempo_transcurrido() << endl;
+        cout << "Dispersion media: " << dispersion_media << endl;
     }

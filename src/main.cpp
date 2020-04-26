@@ -26,6 +26,8 @@ int main(int argc,char *argv[])
   // grafo.imprimir_grafo();
   // grafo.imprimir_costes();
 
+  cout << endl;
+
   for (int i = 0; i < 5; i++)
   {
     Algoritmo_Voraz_ algoritmo(grafo);
@@ -33,19 +35,25 @@ int main(int argc,char *argv[])
     algoritmo.imprimir_solucion();
   }
 
-  // for (int i = 0; i < 5; i++)
-  // {
-  //   Algoritmo_Nuevo_ algoritmo_nuevo(grafo);
-  //   algoritmo_nuevo.resolver_algoritmo();
-  //   algoritmo_nuevo.imprimir_solucion();
-  // }
+  cout << endl << "-------------------------------------------" << endl;
 
-  // for (int i = 0; i < 5; i++)
-  // {
-  //   Algoritmo_GRASP_ algoritmo_grasp(grafo, 2, 1, 1000);
-  //   algoritmo_grasp.resolver_algoritmo(0);
-  //   algoritmo_grasp.imprimir_solucion();
-  // }
+  for (int i = 0; i < 5; i++)
+  {
+    Algoritmo_Nuevo_ algoritmo_nuevo(grafo);
+    algoritmo_nuevo.resolver_algoritmo();
+    algoritmo_nuevo.imprimir_solucion();
+  }
+
+  cout << endl << "-------------------------------------------" << endl;
+
+  for (int i = 0; i < 5; i++)
+  {
+    Algoritmo_GRASP_ algoritmo_grasp(grafo, 2, 1, 1000);
+    algoritmo_grasp.resolver_algoritmo(0);
+    algoritmo_grasp.imprimir_solucion();
+  }
+
+  cout << endl << "-------------------------------------------";
 
   for (int i = 0; i < 5; i++)
   {

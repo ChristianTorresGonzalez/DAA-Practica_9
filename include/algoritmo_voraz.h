@@ -27,13 +27,15 @@
 class Algoritmo_Voraz_ : public Algoritmos_
 {
     private:
+        vector<Nodo_> vector_inicial;
         vector<Nodo_> vector_solucion;
+
     public:
         Algoritmo_Voraz_(Grafo_ );
 
         void resolver_algoritmo(void);
         
-        float calcular_dispersion_maxima(vector<Nodo_> &);
+        float calcular_dispersion_maxima();
 
         void imprimir_solucion(void);
 };

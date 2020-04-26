@@ -25,7 +25,6 @@
     Algoritmo_GRASP_::Algoritmo_GRASP_(Grafo_ grafo, int size, int opcion, int iteraciones):
         iteraciones(iteraciones),
         opcion(opcion),
-        dispersion(0),
         size_lrc(size),
         lrc(),
         Algoritmos_(grafo)
@@ -33,6 +32,7 @@
 
     void Algoritmo_GRASP_::resolver_algoritmo(int metodo)
     {
+        cronometro.start();
         vector_solucion.resize(0);
         int repeticiones = 0;
 
@@ -41,7 +41,7 @@
 
         vector_solucion = vector_inicial;
 
-        dispersion = calcular_dispersion_media(vector_inicial);
+        dispersion_media = calcular_dispersion_media(vector_inicial);
 
         if (opcion == 0)
         {
@@ -65,6 +65,8 @@
 
                 repeticiones++;
             }
+
+            cronometro.end();
         }
         else
         {
@@ -80,15 +82,19 @@
                 if (salida == false)
                     repeticiones++;
             }
+
+            cronometro.end();
         }
     }
 
     vector<Nodo_> Algoritmo_GRASP_::resolver_algoritmo(vector<Nodo_> &vector_inicio, int metodo)
     {
+        cronometro.start();
         vector_inicial = vector_inicio;
         resolver_algoritmo(metodo);
 
         return vector_solucion;
+        cronometro.end();
     }
 
 // -------------------------------------------------------------------------------------------------------------
@@ -107,13 +113,38 @@
 
     void Algoritmo_GRASP_::fase_constructiva(Nodo_ &nodo)
     {
-        while(lrc.size() < size_lrc && lrc.size() != grafo.vector_nodos.size())
+        int i, j = 0;
+        while(j < grafo.vector_nodos.size())
         {
-            int posicion = rand() % grafo.vector_nodos.size();
-            if (!buscar_en_vector(grafo.get_nodo(posicion), lrc))
+            if (i < size_lrc)
             {
-                lrc.push_back(grafo.get_nodo(posicion));
-            }            
+                lrc.push_back(grafo.get_nodo(j));
+                i++;
+                j++;
+            }
+            else
+            {
+                i = 0;
+                bool cambiado = false;
+                while(!cambiado || i < lrc.size())
+                {
+                    vector_inicial.push_back(lrc[i]);
+                    int dispersion_anterior = calcular_dispersion_media(vector_inicial);
+                    vector_inicial.erase(vector_inicial.begin() + vector_inicial.size());
+
+                    vector_inicial.push_back(grafo.get_nodo(j));
+                    int dispersion_siguiente = calcular_dispersion_media(vector_inicial);
+                    vector_inicial.erase(vector_inicial.begin() + vector_inicial.size());
+
+                    if (dispersion_siguiente >= dispersion_anterior)
+                    {
+                        lrc[i] = grafo.get_nodo(j);
+                        cambiado = true;
+                    }                    
+
+                    i++;
+                }
+            }     
         }
 
         nodo = lrc[rand() % lrc.size()];
@@ -125,9 +156,9 @@
 
         float nueva_dispersion = calcular_dispersion_media(vector_inicial);
 
-        if (nueva_dispersion >= dispersion)
+        if (nueva_dispersion >= dispersion_media)
         {
-            dispersion = nueva_dispersion;
+            dispersion_media = nueva_dispersion;
             grafo.eliminar_nodo(vector_inicial[vector_inicial.size() - 1].get_identificador_nodo());
 
             return true;
@@ -156,9 +187,9 @@
             vector_inicial.push_back(grafo.get_nodo(i));
             float nueva_dispersion = calcular_dispersion_media(vector_inicial);
 
-            if (nueva_dispersion >= dispersion)
+            if (nueva_dispersion >= dispersion_media)
             {
-                dispersion = nueva_dispersion;
+                dispersion_media = nueva_dispersion;
                 lrc.push_back(grafo.get_nodo(i));
             }
 
@@ -179,7 +210,7 @@
         {
             vector_inicial.push_back(nodo);
             float nueva_dispersion = calcular_dispersion_media(vector_inicial);
-            dispersion = nueva_dispersion;
+            dispersion_media = nueva_dispersion;
             grafo.eliminar_nodo(nodo.get_identificador_nodo());
         }
     }
@@ -188,7 +219,7 @@
 // -------------------------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------------------------------
     void Algoritmo_GRASP_::imprimir_solucion()
-    {
+    {   
         cout << "Solucion Algoritmo GRASP: {";
         for (int i = 0; i < vector_solucion.size(); i++)
         {
@@ -196,4 +227,6 @@
         }
 
         cout << "}" << endl;
+        cout << "Tiempo de CPU: " << cronometro.tiempo_transcurrido() << endl;
+        cout << "Dispersion media: " << dispersion_media << endl;
     }

@@ -28,6 +28,7 @@
 
     void Algoritmo_Multiarranque_::resolver_algoritmo_metodo1(void)
     {
+        cronometro.start();
         vector_solucion.resize(0);
 
         vector<Nodo_> vector_inicial;
@@ -35,15 +36,22 @@
 
         Algoritmo_GRASP_ algoritmo(grafo, 3, 1, 1000);
         vector_solucion = algoritmo.resolver_algoritmo(vector_inicial, 1);
+        dispersion_media = algoritmo.dispersion_media;
+
+        cronometro.end();
     }
 
     void Algoritmo_Multiarranque_::resolver_algoritmo_metodo2(void)
     {
+        cronometro.start();
         vector<Nodo_> vector_inicial;
         preprocesamiento_metodo2(vector_inicial);
 
         Algoritmo_GRASP_ algoritmo(grafo, 5, 0, 1000);
         vector_solucion = algoritmo.resolver_algoritmo(vector_inicial, 2);
+        dispersion_media = algoritmo.dispersion_media;
+
+        cronometro.end();
     }
 
 // -------------------------------------------------------------------------------------------------------------
@@ -78,7 +86,7 @@
 // -------------------------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------------------------------
     void Algoritmo_Multiarranque_::imprimir_solucion()
-    {
+    {   
         cout << "Solucion Algoritmo Multiarranque: {";
         for (int i = 0; i < vector_solucion.size(); i++)
         {
@@ -86,4 +94,6 @@
         }
 
         cout << "}" << endl;
+        cout << "Tiempo de CPU: " << cronometro.tiempo_transcurrido() << endl;
+        cout << "Dispersion media: " << dispersion_media << endl;
     }

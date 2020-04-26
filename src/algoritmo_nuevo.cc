@@ -28,99 +28,56 @@
 
     void Algoritmo_Nuevo_::resolver_algoritmo(void)
     {
+        cronometro.start();
         Arista_ arista = calcular_arista_maxima();
-        vector<Nodo_> vector_inicial;
 
         vector_inicial.push_back(grafo.get_nodo(arista.get_nodo_inicial() - 1));
         vector_inicial.push_back(grafo.get_nodo(arista.get_nodo_destino() - 1));
         grafo.vector_nodos.erase(grafo.vector_nodos.begin() + arista.get_nodo_inicial() - 1);
         grafo.vector_nodos.erase(grafo.vector_nodos.begin() + arista.get_nodo_destino() - 2);
 
-        float dispersion = calcular_dispersion_media(vector_inicial);
+        dispersion_media = calcular_dispersion_media(vector_inicial);
 
         while(comparar_vectores(vector_inicial, vector_solucion) == false)
         {
             vector_solucion = vector_inicial;
-            float nueva_dispersion = calcular_dispersion_maxima(vector_inicial, dispersion);
+            float nueva_dispersion = calcular_dispersion_maxima(dispersion_media);
+
+            if (nueva_dispersion >= dispersion_media)
+            {
+                dispersion_media = nueva_dispersion;
+                grafo.eliminar_nodo(vector_inicial[vector_inicial.size() - 1].get_identificador_nodo());
+            }
+        }
+
+        cronometro.end();
+    }
+
+    float Algoritmo_Nuevo_::calcular_dispersion_maxima(float dispersion_actual)
+    {
+        float dispersion = dispersion_actual;
+        bool encontrado = false;
+
+        int i = 0;
+        while (i < grafo.vector_nodos.size() && encontrado == false)            
+        {
+            vector_inicial.push_back(grafo.get_nodo(i));
+            float nueva_dispersion = calcular_dispersion_media(vector_inicial);
 
             if (nueva_dispersion >= dispersion)
             {
                 dispersion = nueva_dispersion;
-                grafo.eliminar_nodo(vector_inicial[vector_inicial.size() - 1].get_identificador_nodo());
+                encontrado = true;
             }
-        }
-    }
-
-    Arista_ Algoritmo_Nuevo_::calcular_arista_maxima()
-    {
-        float coste = 0;
-        Arista_ arista_maxima;
-
-        for (int i = 0; i < this -> grafo.get_numero_nodos(); i++)
-        {
-            for (int j = 0; j < grafo.get_nodo(i).get_cantidad_aristas(); j++)
+            else
             {
-                if (grafo.get_nodo(i).get_coste_arista(j) > coste)
-                {
-                    coste = grafo.get_nodo(i).get_coste_arista(j);
-                    arista_maxima = grafo.get_nodo(i).get_arista(j);
-                }
-            }
-        }
-
-        return arista_maxima;
-    }
-
-    float Algoritmo_Nuevo_::calcular_dispersion_media(vector<Nodo_> vector_nodos)
-    {
-        float suma = 0;
-        for (int i = 0; i < vector_nodos.size() - 1; i++)
-        {
-            for (int j = i + 1; j < vector_nodos.size(); j++)
-            {
-                Arista_ arista = vector_nodos[i].find_arista(vector_nodos[j].get_identificador_nodo());
-                suma += arista.get_coste_arista();
-            }
-        }
-        
-        return (suma / vector_nodos.size());
-    }
-
-    float Algoritmo_Nuevo_::calcular_dispersion_maxima(vector<Nodo_> &vector_nodos, float dispersion_actual)
-    {
-        for (int i = 0; i < grafo.vector_nodos.size(); i++)            
-        {
-            vector_nodos.push_back(grafo.get_nodo(i));
-            float nueva_dispersion = calcular_dispersion_media(vector_nodos);
-
-            if (nueva_dispersion >= dispersion_actual)
-            {
-                return nueva_dispersion;
+                vector_inicial.erase(vector_inicial.begin() + vector_inicial.size());   
             }
 
-            vector_nodos.erase(vector_nodos.begin() + vector_nodos.size());
+            i++;
         }
 
-        return 0;
-    }
-
-    bool Algoritmo_Nuevo_::comparar_vectores(vector<Nodo_> vector_inicial, vector<Nodo_> vector_solucion)
-    {
-        if (vector_inicial.size() != vector_solucion.size())
-        {
-            return false;
-        }
-        else
-        {
-            for (int i = 0; i < vector_inicial.size(); i++)
-            {
-                if (vector_inicial[i].get_identificador_nodo() != vector_solucion[i].get_identificador_nodo())
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
+        return dispersion;
     }
 
     void Algoritmo_Nuevo_::imprimir_solucion()
@@ -132,4 +89,6 @@
         }
 
         cout << "}" << endl;
+        cout << "Tiempo de CPU: " << cronometro.tiempo_transcurrido() << endl;
+        cout << "Dispersion media: " << dispersion_media << endl;
     }

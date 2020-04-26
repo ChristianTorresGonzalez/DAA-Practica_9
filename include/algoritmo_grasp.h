@@ -29,7 +29,6 @@ class Algoritmo_GRASP_ : public Algoritmos_
     private:
         int opcion;
         int iteraciones;
-        float dispersion;
         int size_lrc;
         vector<Nodo_> vector_inicial;
         vector<Nodo_> vector_solucion;

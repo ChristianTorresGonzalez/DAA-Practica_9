@@ -27,6 +27,7 @@
 class Algoritmo_Nuevo_ : public Algoritmos_
 {
     private:
+        vector<Nodo_> vector_inicial;
         vector<Nodo_> vector_solucion;
 
     public:
@@ -34,11 +35,7 @@ class Algoritmo_Nuevo_ : public Algoritmos_
 
         void resolver_algoritmo(void);
         
-        Arista_ calcular_arista_maxima(void);
-        float calcular_dispersion_media(vector<Nodo_> );
-        float calcular_dispersion_maxima(vector<Nodo_> &, float );
-
-        bool comparar_vectores(vector<Nodo_> , vector<Nodo_> );
+        float calcular_dispersion_maxima(float );
 
         void imprimir_solucion(void);
 };

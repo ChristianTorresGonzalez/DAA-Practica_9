@@ -23,14 +23,16 @@
 #include <string>
 
 #include "./grafo.h"
+#include "./cronometro.h"
 
 using namespace std;
 
 class Algoritmos_ {
     public:
-        int dispersion_media;
+        float dispersion_media;
         int tiempo_cpu;
         Grafo_ grafo;
+        Cronometro_ cronometro;
 
     public:
         Algoritmos_(Grafo_ );
