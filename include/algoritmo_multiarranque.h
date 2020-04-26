@@ -22,24 +22,24 @@
 #include <fstream>
 #include <string>
 
-#include "./grafo.h"
+#include "./algoritmos.h"
+#include "./algoritmo_grasp.h"
 
-using namespace std;
+class Algoritmo_Multiarranque_ : public Algoritmos_
+{
+    private:
+        float dispersion;
 
-class Algoritmos_ {
+        vector<Nodo_> vector_solucion;
+
     public:
-        int dispersion_media;
-        int tiempo_cpu;
-        Grafo_ grafo;
+        Algoritmo_Multiarranque_(Grafo_ );
 
-    public:
-        Algoritmos_(Grafo_ );
+        void resolver_algoritmo_metodo1(void);
+        void resolver_algoritmo_metodo2(void);
 
-        Arista_ calcular_arista_maxima();
-        float calcular_dispersion_media(vector<Nodo_> );
+        void preprocesamiento_metodo1(vector<Nodo_> &);
+        void preprocesamiento_metodo2(vector<Nodo_> &);
 
-        bool comparar_vectores(vector<Nodo_> , vector<Nodo_> );
-        bool buscar_en_vector(Nodo_ , vector<Nodo_> );
-
-        virtual void resolver_algoritmo(void);
+        void imprimir_solucion(void);
 };

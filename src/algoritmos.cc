@@ -28,6 +28,11 @@
         grafo(grafo)
         {}
       
+    void Algoritmos_::resolver_algoritmo()
+    {
+
+    }
+    
     Arista_ Algoritmos_::calcular_arista_maxima()
     {
         float coste = 0;

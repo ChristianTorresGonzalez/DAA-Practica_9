@@ -31,17 +31,25 @@ class Algoritmo_GRASP_ : public Algoritmos_
         int iteraciones;
         float dispersion;
         int size_lrc;
+        vector<Nodo_> vector_inicial;
         vector<Nodo_> vector_solucion;
         vector<Nodo_> lrc;
 
     public:
         Algoritmo_GRASP_(Grafo_ , int , int , int );
 
-        void resolver_algoritmo(void);
-        void preprocesamiento(vector<Nodo_> &);
+        void resolver_algoritmo(int );
+        vector<Nodo_> resolver_algoritmo(vector<Nodo_> &, int metodo);
+        void preprocesamiento();
+
         void fase_constructiva(Nodo_ &);
-        bool post_procesamiento(Nodo_ &, vector<Nodo_> &);
-        void actualizar_solucion(vector<Nodo_> &);
+        void fase_constructiva_multiarranque(Nodo_ &);
+        float calcular_dispersion_maxima(vector<Nodo_> &);
+
+        bool post_procesamiento(Nodo_ &);
+        bool post_procesamiento_multiarranque(Nodo_ &);
+        void actualizar_solucion();
+
 
         void imprimir_solucion(void);
 };

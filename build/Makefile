@@ -7,7 +7,7 @@ LDIR =../lib
 
 LIBS=-lm
 
-_OBJ = main.o gestora.o arista.o grafo.o nodo.o algoritmos.o algoritmo_voraz.o algoritmo_nuevo.o algoritmo_grasp.o
+_OBJ = main.o gestora.o arista.o grafo.o nodo.o algoritmos.o algoritmo_voraz.o algoritmo_nuevo.o algoritmo_grasp.o algoritmo_multiarranque.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 all: algoritmos
@@ -36,7 +36,10 @@ $(ODIR)/algoritmo_nuevo.o: $(ODIR)/algoritmo_nuevo.cc $(IDIR)/algoritmo_nuevo.h 
 $(ODIR)/algoritmo_grasp.o: $(ODIR)/algoritmo_grasp.cc $(IDIR)/algoritmo_grasp.h $(ODIR)/algoritmos.o
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-$(ODIR)/main.o: $(ODIR)/main.cpp $(ODIR)/gestora.o $(ODIR)/algoritmos.o $(ODIR)/algoritmo_voraz.o $(ODIR)/algoritmo_grasp.o
+$(ODIR)/algoritmo_multiarranque.o: $(ODIR)/algoritmo_multiarranque.cc $(IDIR)/algoritmo_multiarranque.h $(ODIR)/algoritmos.o $(ODIR)/algoritmo_grasp.o
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+$(ODIR)/main.o: $(ODIR)/main.cpp $(ODIR)/gestora.o $(ODIR)/algoritmos.o $(ODIR)/algoritmo_voraz.o $(ODIR)/algoritmo_grasp.o $(ODIR)/algoritmo_multiarranque.o
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 algoritmos: $(OBJ)

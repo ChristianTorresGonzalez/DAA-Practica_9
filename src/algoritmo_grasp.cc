@@ -31,14 +31,14 @@
         Algoritmos_(grafo)
         {}
 
-    void Algoritmo_GRASP_::resolver_algoritmo(void)
+    void Algoritmo_GRASP_::resolver_algoritmo(int metodo)
     {
         vector_solucion.resize(0);
         int repeticiones = 0;
 
-        vector<Nodo_> vector_inicial;
+        if (metodo == 0)
+            preprocesamiento();
 
-        preprocesamiento(vector_inicial);
         vector_solucion = vector_inicial;
 
         dispersion = calcular_dispersion_media(vector_inicial);
@@ -50,9 +50,18 @@
                 lrc.resize(0);
                 Nodo_ nodo;
 
-                fase_constructiva(nodo);
-                post_procesamiento(nodo, vector_inicial);
-                actualizar_solucion(vector_inicial);
+                if (metodo == 0 || metodo == 1)
+                {
+                    fase_constructiva(nodo);
+                    post_procesamiento(nodo);
+                    actualizar_solucion();
+                }
+                else if (metodo == 2)
+                {
+                    fase_constructiva_multiarranque(nodo);
+                    post_procesamiento_multiarranque(nodo);
+                    actualizar_solucion();
+                }
 
                 repeticiones++;
             }
@@ -65,8 +74,8 @@
                 Nodo_ nodo;
 
                 fase_constructiva(nodo);
-                int salida = post_procesamiento(nodo, vector_inicial);
-                actualizar_solucion(vector_inicial);
+                int salida = post_procesamiento(nodo);
+                actualizar_solucion();
                 
                 if (salida == false)
                     repeticiones++;
@@ -74,12 +83,23 @@
         }
     }
 
-    void Algoritmo_GRASP_::preprocesamiento(vector<Nodo_> &vector_nodos)
+    vector<Nodo_> Algoritmo_GRASP_::resolver_algoritmo(vector<Nodo_> &vector_inicio, int metodo)
+    {
+        vector_inicial = vector_inicio;
+        resolver_algoritmo(metodo);
+
+        return vector_solucion;
+    }
+
+// -------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------
+    void Algoritmo_GRASP_::preprocesamiento()
     {
         Arista_ arista = calcular_arista_maxima();
 
-        vector_nodos.push_back(grafo.get_nodo(arista.get_nodo_inicial() - 1));
-        vector_nodos.push_back(grafo.get_nodo(arista.get_nodo_destino() - 1));
+        vector_inicial.push_back(grafo.get_nodo(arista.get_nodo_inicial() - 1));
+        vector_inicial.push_back(grafo.get_nodo(arista.get_nodo_destino() - 1));
 
         grafo.vector_nodos.erase(grafo.vector_nodos.begin() + arista.get_nodo_inicial() - 1);
         grafo.vector_nodos.erase(grafo.vector_nodos.begin() + arista.get_nodo_destino() - 2);
@@ -99,7 +119,7 @@
         nodo = lrc[rand() % lrc.size()];
     }
 
-    bool Algoritmo_GRASP_::post_procesamiento(Nodo_ &nodo, vector<Nodo_> &vector_inicial)
+    bool Algoritmo_GRASP_::post_procesamiento(Nodo_ &nodo)
     {
         vector_inicial.push_back(nodo);
 
@@ -120,11 +140,53 @@
         }
     }
 
-    void Algoritmo_GRASP_::actualizar_solucion(vector<Nodo_> &vector_inicial)
+    void Algoritmo_GRASP_::actualizar_solucion()
     {
         vector_solucion = vector_inicial;
     }
 
+// -------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------
+    void Algoritmo_GRASP_::fase_constructiva_multiarranque(Nodo_ &nodo)
+    {
+        int i = 0;
+        while(lrc.size() < size_lrc && i < grafo.vector_nodos.size())
+        {
+            vector_inicial.push_back(grafo.get_nodo(i));
+            float nueva_dispersion = calcular_dispersion_media(vector_inicial);
+
+            if (nueva_dispersion >= dispersion)
+            {
+                dispersion = nueva_dispersion;
+                lrc.push_back(grafo.get_nodo(i));
+            }
+
+            vector_inicial.erase(vector_inicial.begin() + vector_inicial.size());
+
+            i++;
+        }
+
+        if (lrc.size() > 0)
+            nodo = lrc[rand() % lrc.size()];
+        else
+            nodo.insertar_identificador(-1);
+    }
+    
+    bool Algoritmo_GRASP_::post_procesamiento_multiarranque(Nodo_ &nodo)
+    {
+        if (nodo.get_identificador_nodo() != -1)
+        {
+            vector_inicial.push_back(nodo);
+            float nueva_dispersion = calcular_dispersion_media(vector_inicial);
+            dispersion = nueva_dispersion;
+            grafo.eliminar_nodo(nodo.get_identificador_nodo());
+        }
+    }
+
+// -------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------
     void Algoritmo_GRASP_::imprimir_solucion()
     {
         cout << "Solucion Algoritmo GRASP: {";
