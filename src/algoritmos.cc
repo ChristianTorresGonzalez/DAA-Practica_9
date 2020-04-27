@@ -6,9 +6,8 @@
   * @copyright Curso: 3º Itinerario 1
   * @copyright Práctica 8. Algoritmos 
   * @author: Christian Torres Gonzalez alu0101137902@ull.edu.es
-  * @description: Fichero de la clase Algoritmo, encargada de leer los
-  * datos del archivo, tratarlos, almacenarlos y pasarselos al grafo
-  * que se utilizara para la resolucion de los algoritmos
+  * @description: Fichero de la clase Algoritmo, encargada almacenar
+  * la informacion comun a los diferentes algorimtos implementados
   * @since 23/04/2020 
   * @file Fichero de implementacion de la clase Algoritmo
   * @version 1.0.0
@@ -105,4 +104,17 @@
         }
         
         return (suma / vector_nodos.size());
+    }
+
+    void Algoritmos_::imprimir_solucion(string cadena)
+    {   
+        cout << "Solucion Algoritmo " << cadena << ": {";
+        for (int i = 0; i < vector_solucion.size(); i++)
+        {
+            cout << vector_solucion[i].get_identificador_nodo() << " | ";
+        }
+
+        cout << "}" << endl;
+        cout << "Tiempo de CPU: " << cronometro.tiempo_transcurrido() << endl;
+        cout << "Dispersion media: " << dispersion_media << endl;
     }

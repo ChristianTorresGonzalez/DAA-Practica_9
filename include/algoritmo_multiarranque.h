@@ -6,11 +6,10 @@
   * @copyright Curso: 3º Itinerario 1
   * @copyright Práctica 8. Algoritmos 
   * @author: Christian Torres Gonzalez alu0101137902@ull.edu.es
-  * @description: Fichero de la clase gestora, encargada de leer los
-  * datos del archivo, tratarlos, almacenarlos y pasarselos al grafo
-  * que se utilizara para la resolucion de los algoritmos
+  * @description: Fichero de la clase Algoritmo_Multiarranque, encargada de 
+  * implementar el codigo que resuelve el problema
   * @since 23/04/2020 
-  * @file Fichero de implementacion de la clase Gestora
+  * @file Fichero de implementacion de la clase Algoritmo_Multiarranque
   * @version 1.0.0
   * @see https://github.com/ChristianTorresGonzalez/DAA_P8.git
 */
@@ -29,8 +28,7 @@ class Algoritmo_Multiarranque_ : public Algoritmos_
 {
     private:
         float dispersion;
-
-        vector<Nodo_> vector_solucion;
+        vector<Nodo_> vector_inicial;
 
     public:
         Algoritmo_Multiarranque_(Grafo_ );
@@ -40,6 +38,4 @@ class Algoritmo_Multiarranque_ : public Algoritmos_
 
         void preprocesamiento_metodo1(vector<Nodo_> &);
         void preprocesamiento_metodo2(vector<Nodo_> &);
-
-        void imprimir_solucion(void);
 };

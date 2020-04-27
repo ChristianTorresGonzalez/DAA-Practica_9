@@ -6,11 +6,10 @@
   * @copyright Curso: 3º Itinerario 1
   * @copyright Práctica 8. Algoritmos 
   * @author: Christian Torres Gonzalez alu0101137902@ull.edu.es
-  * @description: Fichero de la clase gestora, encargada de leer los
-  * datos del archivo, tratarlos, almacenarlos y pasarselos al grafo
-  * que se utilizara para la resolucion de los algoritmos
+  * @description: Fichero de la clase Algoritmo, encargada almacenar
+  * la informacion comun a los diferentes algorimtos implementados
   * @since 23/04/2020 
-  * @file Fichero de implementacion de la clase Gestora
+  * @file Fichero de implementacion de la clase Algoritmo
   * @version 1.0.0
   * @see https://github.com/ChristianTorresGonzalez/DAA_P8.git
 */
@@ -31,7 +30,11 @@ class Algoritmos_ {
     public:
         float dispersion_media;
         int tiempo_cpu;
+
+        vector<Nodo_> vector_solucion;
+        vector<Nodo_> vector_inicial;
         Grafo_ grafo;
+
         Cronometro_ cronometro;
 
     public:
@@ -42,6 +45,8 @@ class Algoritmos_ {
 
         bool comparar_vectores(vector<Nodo_> , vector<Nodo_> );
         bool buscar_en_vector(Nodo_ , vector<Nodo_> );
+
+        void imprimir_solucion(string );
 
         virtual void resolver_algoritmo(void);
 };

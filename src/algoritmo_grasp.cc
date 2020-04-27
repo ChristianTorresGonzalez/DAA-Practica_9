@@ -6,11 +6,10 @@
   * @copyright Curso: 3º Itinerario 1
   * @copyright Práctica 8. Algoritmos 
   * @author: Christian Torres Gonzalez alu0101137902@ull.edu.es
-  * @description: Fichero de la clase Algoritmo, encargada de leer los
-  * datos del archivo, tratarlos, almacenarlos y pasarselos al grafo
-  * que se utilizara para la resolucion de los algoritmos
+  * @description: Fichero de la clase Algoritmo_GRASP_, encargada de 
+  * implementar el codigo que resuelve el problema
   * @since 23/04/2020 
-  * @file Fichero de implementacion de la clase Algoritmo
+  * @file Fichero de implementacion de la clase Algoritmo_GRASP_
   * @version 1.0.0
   * @see https://github.com/ChristianTorresGonzalez/DAA_P8.git
 */
@@ -38,8 +37,6 @@
 
         if (metodo == 0)
             preprocesamiento();
-
-        vector_solucion = vector_inicial;
 
         dispersion_media = calcular_dispersion_media(vector_inicial);
 
@@ -213,20 +210,4 @@
             dispersion_media = nueva_dispersion;
             grafo.eliminar_nodo(nodo.get_identificador_nodo());
         }
-    }
-
-// -------------------------------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------------------------------
-    void Algoritmo_GRASP_::imprimir_solucion()
-    {   
-        cout << "Solucion Algoritmo GRASP: {";
-        for (int i = 0; i < vector_solucion.size(); i++)
-        {
-            cout << vector_solucion[i].get_identificador_nodo() << " | ";
-        }
-
-        cout << "}" << endl;
-        cout << "Tiempo de CPU: " << cronometro.tiempo_transcurrido() << endl;
-        cout << "Dispersion media: " << dispersion_media << endl;
     }

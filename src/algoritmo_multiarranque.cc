@@ -6,11 +6,10 @@
   * @copyright Curso: 3º Itinerario 1
   * @copyright Práctica 8. Algoritmos 
   * @author: Christian Torres Gonzalez alu0101137902@ull.edu.es
-  * @description: Fichero de la clase Algoritmo, encargada de leer los
-  * datos del archivo, tratarlos, almacenarlos y pasarselos al grafo
-  * que se utilizara para la resolucion de los algoritmos
+  * @description: Fichero de la clase Algoritmo_Multiarranque, encargada de 
+  * implementar el codigo que resuelve el problema
   * @since 23/04/2020 
-  * @file Fichero de implementacion de la clase Algoritmo
+  * @file Fichero de implementacion de la clase Algoritmo_Multiarranque
   * @version 1.0.0
   * @see https://github.com/ChristianTorresGonzalez/DAA_P8.git
 */
@@ -31,7 +30,6 @@
         cronometro.start();
         vector_solucion.resize(0);
 
-        vector<Nodo_> vector_inicial;
         preprocesamiento_metodo1(vector_inicial);
 
         Algoritmo_GRASP_ algoritmo(grafo, 3, 1, 1000);
@@ -44,7 +42,6 @@
     void Algoritmo_Multiarranque_::resolver_algoritmo_metodo2(void)
     {
         cronometro.start();
-        vector<Nodo_> vector_inicial;
         preprocesamiento_metodo2(vector_inicial);
 
         Algoritmo_GRASP_ algoritmo(grafo, 5, 0, 1000);
@@ -80,20 +77,4 @@
 
         grafo.vector_nodos.erase(grafo.vector_nodos.begin() + arista.get_nodo_inicial() - 1);
         grafo.vector_nodos.erase(grafo.vector_nodos.begin() + arista.get_nodo_destino() - 2);
-    }
-
-// -------------------------------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------------------------------
-    void Algoritmo_Multiarranque_::imprimir_solucion()
-    {   
-        cout << "Solucion Algoritmo Multiarranque: {";
-        for (int i = 0; i < vector_solucion.size(); i++)
-        {
-            cout << vector_solucion[i].get_identificador_nodo() << " | ";
-        }
-
-        cout << "}" << endl;
-        cout << "Tiempo de CPU: " << cronometro.tiempo_transcurrido() << endl;
-        cout << "Dispersion media: " << dispersion_media << endl;
     }

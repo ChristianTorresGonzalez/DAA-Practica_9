@@ -6,11 +6,11 @@
   * @copyright Curso: 3º Itinerario 1
   * @copyright Práctica 8. Algoritmos 
   * @author: Christian Torres Gonzalez alu0101137902@ull.edu.es
-  * @description: Fichero de la clase Algoritmo, encargada de leer los
-  * datos del archivo, tratarlos, almacenarlos y pasarselos al grafo
-  * que se utilizara para la resolucion de los algoritmos
+  * @description: Fichero de la clase Algoritmo_Voraz_, encargada de 
+  * implementar el codigo que resuelve el problema de la maxima dispersion
+  * media utilizando la tecnica de Algoritmo Voraz
   * @since 23/04/2020 
-  * @file Fichero de implementacion de la clase Algoritmo
+  * @file Fichero de implementacion de la clase Algoritmo_Voraz_
   * @version 1.0.0
   * @see https://github.com/ChristianTorresGonzalez/DAA_P8.git
 */
@@ -67,7 +67,7 @@
             vector_inicial.push_back(grafo.get_nodo(i));
             float nueva_dispersion = calcular_dispersion_media(vector_inicial);
 
-            if (nueva_dispersion > dispersion)
+            if (nueva_dispersion >= dispersion)
             {
                 dispersion = nueva_dispersion;
                 nodo_maximo = grafo.get_nodo(i);
@@ -79,17 +79,4 @@
         vector_inicial.push_back(nodo_maximo);
 
         return dispersion;
-    }
-
-    void Algoritmo_Voraz_::imprimir_solucion()
-    {
-        cout << "Solucion Algoritmo Voraz: {";
-        for (int i = 0; i < vector_solucion.size(); i++)
-        {
-            cout << vector_solucion[i].get_identificador_nodo() << " | ";
-        }
-
-        cout << "}" << endl;
-        cout << "Tiempo de CPU: " << cronometro.tiempo_transcurrido() << endl;
-        cout << "Dispersion media: " << dispersion_media << endl;
     }

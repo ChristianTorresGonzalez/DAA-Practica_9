@@ -6,11 +6,11 @@
   * @copyright Curso: 3º Itinerario 1
   * @copyright Práctica 8. Algoritmos 
   * @author: Christian Torres Gonzalez alu0101137902@ull.edu.es
-  * @description: Fichero de la clase Algoritmo, encargada de leer los
-  * datos del archivo, tratarlos, almacenarlos y pasarselos al grafo
-  * que se utilizara para la resolucion de los algoritmos
+  * @description: Fichero de la clase Algoritmo_Nuevo_, encargada de 
+  * implementar el codigo que resuelve el problema de la maxima dispersion
+  * media utilizando la tecnica de Algoritmo Nuevo implementado por el alumno
   * @since 23/04/2020 
-  * @file Fichero de implementacion de la clase Algoritmo
+  * @file Fichero de implementacion de la clase Algoritmo_Nuevo_
   * @version 1.0.0
   * @see https://github.com/ChristianTorresGonzalez/DAA_P8.git
 */
@@ -78,17 +78,4 @@
         }
 
         return dispersion;
-    }
-
-    void Algoritmo_Nuevo_::imprimir_solucion()
-    {
-        cout << "Solucion Algoritmo Nuevo: {";
-        for (int i = 0; i < vector_solucion.size(); i++)
-        {
-            cout << vector_solucion[i].get_identificador_nodo() << " | ";
-        }
-
-        cout << "}" << endl;
-        cout << "Tiempo de CPU: " << cronometro.tiempo_transcurrido() << endl;
-        cout << "Dispersion media: " << dispersion_media << endl;
     }
