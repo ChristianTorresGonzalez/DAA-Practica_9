@@ -24,6 +24,7 @@
 #include "../include/algoritmo_nuevo.h"
 #include "../include/algoritmo_grasp.h"
 #include "../include/algoritmo_multiarranque.h"
+#include "../include/algoritmo_vns.h"
 
 using namespace std;
 
@@ -68,7 +69,7 @@ int main(int argc,char *argv[])
     algoritmo_grasp.imprimir_solucion("GRASP");
   }
 
-  cout << endl << "-------------------------------------------";
+  cout << endl << "-------------------------------------------" << endl;
 
   for (int i = 0; i < 5; i++)
   {
@@ -76,5 +77,14 @@ int main(int argc,char *argv[])
     algoritmo_multiarranque.resolver_algoritmo_metodo1();
     // algoritmo_multiarranque.resolver_algoritmo_metodo2();
     algoritmo_multiarranque.imprimir_solucion("MULTIARRANQUE");
+  }
+
+  cout << endl << "-------------------------------------------" << endl;
+
+  for (int i = 0; i < 5; i++)
+  {
+    Algoritmo_VNS_ algoritmo_vns(grafo);
+    algoritmo_vns.resolver_algoritmo(1000, 3, 1);
+    algoritmo_vns.imprimir_solucion("VNS");
   }
 }
