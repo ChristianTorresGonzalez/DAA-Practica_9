@@ -22,10 +22,9 @@
 
 #include "../include/gestora.h"
 
-	Gestor_Archivos_::Gestor_Archivos_(string entrada, string salida, Grafo_ &grafo)
+	Gestor_Archivos_::Gestor_Archivos_(string entrada, Grafo_ &grafo)
 		{
 			archivo1.open(entrada);
-			archivo2.open(salida);
 
 			if (archivo1.fail())
 				cout << "Fallo en la aperura del archivo de entrada" << endl;

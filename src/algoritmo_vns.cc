@@ -60,10 +60,10 @@
             {
                 bool encontrado = false;
                 int busquedas = 0;
-                vector<Nodo_> auxiliar = vector_solucion;
 
                 while (busquedas < intercambios && encontrado == false)
                 {
+                    vector<Nodo_> auxiliar = vector_solucion;
                     Nodo_ nodo_candidato = grafo.get_nodo(rand() % grafo.vector_nodos.size());
                     int posicion = rand() % auxiliar.size();
 
@@ -82,7 +82,44 @@
                         grafo.vector_nodos.push_back(nodo_extraido);
                     }
                     
-                    busquedas++;                    
+                    busquedas++;
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < iteraciones;)
+            {
+                bool encontrado = false;
+                int busquedas = 0;
+
+                while (busquedas < intercambios && encontrado == false)
+                {
+                    vector<Nodo_> auxiliar = vector_solucion;
+                    Nodo_ nodo_candidato = grafo.get_nodo(rand() % grafo.vector_nodos.size());
+                    int posicion = rand() % auxiliar.size();
+
+                    Nodo_ nodo_extraido = auxiliar[posicion];
+                    auxiliar.erase(auxiliar.begin() + posicion);
+                    auxiliar.push_back(nodo_candidato);
+
+                    float disperion_nueva = calcular_dispersion_media(auxiliar);
+
+                    if (disperion_nueva >= dispersion_media)
+                    {
+                        vector_solucion = auxiliar;
+                        encontrado = true;
+                        dispersion_media = disperion_nueva;
+                        grafo.eliminar_nodo(nodo_candidato.get_identificador_nodo());
+                        grafo.vector_nodos.push_back(nodo_extraido);
+                    }
+                    
+                    busquedas++;
+                }
+
+                if (encontrado == false)
+                {
+                    i++;
                 }
             }
 

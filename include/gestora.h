@@ -35,7 +35,7 @@ class Gestor_Archivos_
         vector<Arista_> vector_aristas;
 
     public:
-        Gestor_Archivos_(string ,string ,Grafo_ &);
+        Gestor_Archivos_(string ,Grafo_ &);
 
         void cargar_datos(Grafo_ &);
         void ordenar_aristas(int );

@@ -30,61 +30,75 @@ using namespace std;
 
 int main(int argc,char *argv[])
 {
-  srand(time(NULL));
+    srand(time(NULL));
 
-  string entrada = argv[1];
-  string salida = argv[2];
+    string entrada = argv[1];
 
-  Grafo_ grafo;
+    Grafo_ grafo;
 
-  Gestor_Archivos_ gestor_archivos(entrada, salida, grafo);
-  
-  // grafo.imprimir_grafo();
-  // grafo.imprimir_costes();
+    Gestor_Archivos_ gestor_archivos(entrada, grafo);
+    
+    // grafo.imprimir_grafo();
+    // grafo.imprimir_costes();
 
-  cout << endl;
+    cout << endl;
 
-  for (int i = 0; i < 5; i++)
-  {
-    Algoritmo_Voraz_ algoritmo(grafo);
-    algoritmo.resolver_algoritmo();
-    algoritmo.imprimir_solucion("VORAZ");
-  }
+    for (int i = 0; i < 5; i++)
+    {
+        Algoritmo_Voraz_ algoritmo(grafo);
+        algoritmo.resolver_algoritmo();
+        algoritmo.imprimir_solucion("VORAZ");
+    }
 
-  cout << endl << "-------------------------------------------" << endl;
+    cout << endl << "-------------------------------------------" << endl;
 
-  for (int i = 0; i < 5; i++)
-  {
-    Algoritmo_Nuevo_ algoritmo_nuevo(grafo);
-    algoritmo_nuevo.resolver_algoritmo();
-    algoritmo_nuevo.imprimir_solucion("NUEVO");
-  }
+    for (int i = 0; i < 5; i++)
+    {
+        Algoritmo_Nuevo_ algoritmo_nuevo(grafo);
+        algoritmo_nuevo.resolver_algoritmo();
+        algoritmo_nuevo.imprimir_solucion("NUEVO");
+    }
 
-  cout << endl << "-------------------------------------------" << endl;
+    cout << endl << "-------------------------------------------" << endl;
 
-  for (int i = 0; i < 5; i++)
-  {
-    Algoritmo_GRASP_ algoritmo_grasp(grafo, 3, 1, 1000);
-    algoritmo_grasp.resolver_algoritmo(0);
-    algoritmo_grasp.imprimir_solucion("GRASP");
-  }
+    int size_lrc, iteraciones = 0;
+    cout << "Introduzca tamaño de lrc: ";
+    cin >> size_lrc;
+    cout << "Introduzca numero de iteraciones: ";
+    cin >> iteraciones;
+    for (int i = 0; i < 5; i++)
+    {
+        Algoritmo_GRASP_ algoritmo_grasp(grafo, size_lrc, 0, iteraciones);  // 3: tamaño de lrc, 
+        algoritmo_grasp.resolver_algoritmo(0);
+        algoritmo_grasp.imprimir_solucion("GRASP");
+    }
 
-  cout << endl << "-------------------------------------------" << endl;
+    cout << endl << "-------------------------------------------" << endl;
 
-  for (int i = 0; i < 5; i++)
-  {
-    Algoritmo_Multiarranque_ algoritmo_multiarranque(grafo);
-    algoritmo_multiarranque.resolver_algoritmo_metodo1();
-    // algoritmo_multiarranque.resolver_algoritmo_metodo2();
-    algoritmo_multiarranque.imprimir_solucion("MULTIARRANQUE");
-  }
+    int metodo = 0;
+    cout << "Introduzca metodo de ejecucion: ";
+    cin >> metodo;
+    for (int i = 0; i < 5; i++)
+    {
+        Algoritmo_Multiarranque_ algoritmo_multiarranque(grafo);
+        if (metodo == 1)
+        {
+            algoritmo_multiarranque.resolver_algoritmo_metodo1();  // Metodo 1: Solucion inicial aleatoria y busqueda Grasp
+        }
+        else
+        {
+            algoritmo_multiarranque.resolver_algoritmo_metodo2();     // Metodo 1: Solucion inicial Grasp y busqueda local aleatoria 
+        }
 
-  cout << endl << "-------------------------------------------" << endl;
+        algoritmo_multiarranque.imprimir_solucion("MULTIARRANQUE");
+    }
 
-  for (int i = 0; i < 5; i++)
-  {
-    Algoritmo_VNS_ algoritmo_vns(grafo);
-    algoritmo_vns.resolver_algoritmo(1000, 3, 1);
-    algoritmo_vns.imprimir_solucion("VNS");
-  }
-}
+    cout << endl << "-------------------------------------------" << endl;
+
+    for (int i = 0; i < 5; i++)
+    {
+        Algoritmo_VNS_ algoritmo_vns(grafo);
+        algoritmo_vns.resolver_algoritmo(1000, 3, 0);
+        algoritmo_vns.imprimir_solucion("VNS");
+    }
+    }
