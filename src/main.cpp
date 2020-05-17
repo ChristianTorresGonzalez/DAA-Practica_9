@@ -21,11 +21,8 @@
 #include "../include/grafo.h"
 #include "../include/algoritmos.h"
 #include "../include/algoritmo_voraz.h"
-// #include "../include/algoritmo_nuevo.h"
-// #include "../include/algoritmo_grasp.h"
-// #include "../include/algoritmo_multiarranque.h"
-// #include "../include/algoritmo_vns.h"
-// #include "../include/algoritmo_modificacion.h"
+#include "../include/algoritmo_voraz_nuevo.h"
+#include "../include/algoritmo_busqueda_local.h"
 
 using namespace std;
 
@@ -41,8 +38,6 @@ int main(int argc,char *argv[])
     grafo.imprimir_grafo();
     // grafo.imprimir_costes();
 
-    // cout << endl;
-
     int soluciones = 2;
     for (int i = 0; i < 4; i++)
     {
@@ -52,14 +47,27 @@ int main(int argc,char *argv[])
         soluciones++;
     }
 
-    // cout << endl << "-------------------------------------------" << endl;
+    cout << endl << "-------------------------------------------" << endl;
 
-    // for (int i = 0; i < 5; i++)
-    // {
-    //     Algoritmo_Nuevo_ algoritmo_nuevo(grafo);
-    //     algoritmo_nuevo.resolver_algoritmo();
-    //     algoritmo_nuevo.imprimir_solucion("NUEVO");
-    // }
+    soluciones = 2;
+    for (int i = 0; i < 4; i++)
+    {
+        Algoritmo_Voraz_Nuevo_ algoritmo_nuevo(grafo);
+        algoritmo_nuevo.resolver_algoritmo(soluciones);
+        algoritmo_nuevo.imprimir_soluciones();
+        soluciones++;
+    }
+
+    cout << endl << "-------------------------------------------" << endl;
+
+    soluciones = 2;
+    for (int i = 0; i < 4; i++)
+    {
+        Algoritmo_BusquedaLocal_ algoritmo_busqueda_local(grafo);
+        algoritmo_busqueda_local.resolver_algoritmo(soluciones);
+        algoritmo_busqueda_local.imprimir_soluciones();
+        soluciones++;
+    }
 
     // cout << endl << "-------------------------------------------" << endl;
 

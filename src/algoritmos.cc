@@ -82,15 +82,17 @@
         return sqrt(suma_coordenadas);
     }
 
-    void Algoritmos_::calcular_diversidad(void)
+    float Algoritmos_::calcular_diversidad(float & diversidad, vector<Nodo_> vector_nodos)
     {
-        for (int i = 0; i < vector_solucion.size() - 1; i++)
+        for (int i = 0; i < vector_nodos.size() - 1; i++)
         {
-            for (int j = i + 1; j < vector_solucion.size(); j++)
+            for (int j = i + 1; j < vector_nodos.size(); j++)
             {
-                diversidad += calcular_distancia(vector_solucion[i], vector_solucion[j]);
+                diversidad += calcular_distancia(vector_nodos[i], vector_nodos[j]);
             }
         }
+
+        return diversidad;
     }
 
     // bool Algoritmos_::comparar_vectores(vector<Nodo_> vector_inicial, vector<Nodo_> vector_solucion)

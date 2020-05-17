@@ -44,7 +44,7 @@ class Algoritmos_ {
         Nodo_ calcular_centro(vector<Nodo_> );
         Nodo_ calcular_distancia_maxima(Nodo_ , vector<Nodo_> );
         float calcular_distancia(Nodo_ , Nodo_ );
-        void calcular_diversidad(void);
+        float calcular_diversidad(float & , vector<Nodo_>);
 
         // Arista_ calcular_arista_maxima();
         // float calcular_dispersion_media(vector<Nodo_> );

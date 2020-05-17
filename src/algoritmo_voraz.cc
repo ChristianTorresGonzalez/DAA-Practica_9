@@ -47,7 +47,7 @@
         }
 
         vector_solucion = vector_inicial;
-        calcular_diversidad();
+        calcular_diversidad(diversidad, vector_solucion);
         cronometro.end();
     }
 

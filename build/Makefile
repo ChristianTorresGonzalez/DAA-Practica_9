@@ -7,7 +7,7 @@ LDIR =../lib
 
 LIBS=-lm
 
-_OBJ = main.o gestora.o arista.o grafo.o nodo.o cronometro.o  coordenada.o algoritmos.o algoritmos_voraz.o
+_OBJ = main.o gestora.o arista.o grafo.o nodo.o cronometro.o  coordenada.o algoritmos.o algoritmo_voraz.o algoritmo_voraz_nuevo.o algoritmo_busqueda_local.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 all: algoritmos
@@ -18,7 +18,13 @@ $(ODIR)/arista.o: $(ODIR)/arista.cc $(IDIR)/arista.h
 $(ODIR)/algoritmos.o: $(ODIR)/algoritmos.cc $(IDIR)/algoritmos.h $(ODIR)/grafo.o $(ODIR)/cronometro.o
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-$(ODIR)/algoritmos_voraz.o: $(ODIR)/algoritmo_voraz.cc $(IDIR)/algoritmo_voraz.h $(ODIR)/algoritmos.o
+$(ODIR)/algoritmo_voraz.o: $(ODIR)/algoritmo_voraz.cc $(IDIR)/algoritmo_voraz.h $(ODIR)/algoritmos.o
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+$(ODIR)/algoritmo_voraz_nuevo.o: $(ODIR)/algoritmo_voraz_nuevo.cc $(IDIR)/algoritmo_voraz_nuevo.h $(ODIR)/algoritmos.o
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+$(ODIR)/algoritmo_busqueda_local.o: $(ODIR)/algoritmo_busqueda_local.cc $(IDIR)/algoritmo_busqueda_local.h $(ODIR)/algoritmos.o
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 $(ODIR)/coordenada.o: $(ODIR)/coordenada.cc $(IDIR)/coordenada.h
