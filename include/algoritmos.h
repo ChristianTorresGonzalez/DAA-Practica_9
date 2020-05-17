@@ -20,6 +20,7 @@
 #include <vector>
 #include <fstream>
 #include <string>
+#include <cmath>
 
 #include "./grafo.h"
 #include "./cronometro.h"
@@ -28,7 +29,7 @@ using namespace std;
 
 class Algoritmos_ {
     public:
-        float dispersion_media;
+        float diversidad;
         int tiempo_cpu;
 
         vector<Nodo_> vector_solucion;
@@ -40,11 +41,16 @@ class Algoritmos_ {
     public:
         Algoritmos_(Grafo_ );
 
-        Arista_ calcular_arista_maxima();
-        float calcular_dispersion_media(vector<Nodo_> );
+        Nodo_ calcular_centro(vector<Nodo_> );
+        Nodo_ calcular_distancia_maxima(Nodo_ , vector<Nodo_> );
+        float calcular_distancia(Nodo_ , Nodo_ );
+        void calcular_diversidad(void);
 
-        bool comparar_vectores(vector<Nodo_> , vector<Nodo_> );
-        bool buscar_en_vector(Nodo_ , vector<Nodo_> );
+        // Arista_ calcular_arista_maxima();
+        // float calcular_dispersion_media(vector<Nodo_> );
+
+        // bool comparar_vectores(vector<Nodo_> , vector<Nodo_> );
+        // bool buscar_en_vector(Nodo_ , vector<Nodo_> );
 
         void imprimir_solucion(string );
 

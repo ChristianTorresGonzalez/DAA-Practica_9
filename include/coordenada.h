@@ -6,11 +6,10 @@
   * @copyright Curso: 3º Itinerario 1
   * @copyright Práctica 8. Algoritmos 
   * @author: Christian Torres Gonzalez alu0101137902@ull.edu.es
-  * @description: Fichero de la clase Algoritmo_Nuevo_, encargada de 
-  * implementar el codigo que resuelve el problema de la maxima dispersion
-  * media utilizando la tecnica de Algoritmo Nuevo implementado por el alumno
+  * @description: Fichero de la clase Nodo, encargadad de almacenar
+  * la informacion referente a cada nodo
   * @since 23/04/2020 
-  * @file Fichero de implementacion de la clase Algoritmo_Nuevo_
+  * @file Fichero de implementacion de la clase Nodo
   * @version 1.0.0
   * @see https://github.com/ChristianTorresGonzalez/DAA_P8.git
 */
@@ -20,17 +19,20 @@
 #include <iostream>
 #include <vector>
 
-#include "./algoritmos.h"
+using namespace std;
 
-class Algoritmo_Nuevo_ : public Algoritmos_
+class Coordenada_
 {
     private:
-        vector<Nodo_> vector_inicial;
-
+        vector<float> coordenadas;
+      
     public:
-        Algoritmo_Nuevo_(Grafo_ );
-
-        void resolver_algoritmo(void);
+        Coordenada_(void);
+        Coordenada_(int );
+        Coordenada_(vector<float> );
         
-        float calcular_dispersion_maxima(float );
+        void insertar_coordenada(int , float );
+
+        int get_cantidad_coordenadas(void);
+        float get_coordenada(int );
 };

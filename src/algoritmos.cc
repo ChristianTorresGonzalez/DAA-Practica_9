@@ -22,7 +22,7 @@
 #include "../include/algoritmos.h"
 
     Algoritmos_::Algoritmos_(Grafo_ grafo):
-        dispersion_media(0),
+        diversidad(0),
         tiempo_cpu(0),
         grafo(grafo)
         {}
@@ -32,79 +32,120 @@
 
     }
     
-    Arista_ Algoritmos_::calcular_arista_maxima()
+    Nodo_ Algoritmos_::calcular_centro(vector<Nodo_> elementos)
     {
-        float coste = 0;
-        Arista_ arista_maxima;
+        int cantidad_coordenadas = elementos[0].get_cantidad_coordenadas();
+        int cantidad_nodos = elementos.size();
+        Coordenada_ coordenadas(cantidad_coordenadas);
 
-        for (int i = 0; i < grafo.get_numero_nodos(); i++)
+        for (int i = 0; i < elementos.size(); i++)
         {
-            for (int j = 0; j < grafo.get_nodo(i).get_cantidad_aristas(); j++)
+            for (int j = 0; j < elementos[i].get_cantidad_coordenadas(); j++)
             {
-                if (grafo.get_nodo(i).get_coste_arista(j) > coste)
-                {
-                    coste = grafo.get_nodo(i).get_coste_arista(j);
-                    arista_maxima = grafo.get_nodo(i).get_arista(j);
-                }
+                coordenadas.insertar_coordenada(j, (coordenadas.get_coordenada(j) +
+                    (elementos[i].get_coordenada(j)) / cantidad_nodos));
             }
         }
 
-        return arista_maxima;
+        Nodo_ centro = Nodo_(cantidad_nodos + 1, coordenadas);
+        return centro;
     }
 
-    bool Algoritmos_::comparar_vectores(vector<Nodo_> vector_inicial, vector<Nodo_> vector_solucion)
+    Nodo_ Algoritmos_::calcular_distancia_maxima(Nodo_ centro, vector<Nodo_> elementos)
     {
-        if (vector_inicial.size() != vector_solucion.size())
+        float distancia_maxima = 0;
+        Nodo_ nodo_lejano;
+
+        for (int i = 0; i < elementos.size(); i++)
         {
-            return false;
-        }
-        else
-        {
-            for (int i = 0; i < vector_inicial.size(); i++)
+            float distancia = calcular_distancia(centro, elementos[i]);
+
+            if (distancia > distancia_maxima)
             {
-                if (vector_inicial[i].get_identificador_nodo() != vector_solucion[i].get_identificador_nodo())
-                {
-                    return false;
-                }
+                nodo_lejano = elementos[i];
+                distancia_maxima = distancia;
             }
-            return true;
+        }
+
+        return nodo_lejano;
+    }
+
+    float Algoritmos_::calcular_distancia(Nodo_ centro, Nodo_ nodo)
+    {
+        float suma_coordenadas = 0;
+        for (int i = 0 ; i < centro.get_cantidad_coordenadas(); i++)
+        {
+            float resta = centro.get_coordenada(i) - nodo.get_coordenada(i);
+            suma_coordenadas += pow(resta, 2);
+        }
+
+        return sqrt(suma_coordenadas);
+    }
+
+    void Algoritmos_::calcular_diversidad(void)
+    {
+        for (int i = 0; i < vector_solucion.size() - 1; i++)
+        {
+            for (int j = i + 1; j < vector_solucion.size(); j++)
+            {
+                diversidad += calcular_distancia(vector_solucion[i], vector_solucion[j]);
+            }
         }
     }
 
-    bool Algoritmos_::buscar_en_vector(Nodo_ nodo, vector<Nodo_> vector_nodos)
-    {
-        if (vector_nodos.size() == 0)
-        {
-            return false;
-        }
-        else
-        {
-            for (int i = 0; i < vector_nodos.size(); i++)
-            {
-                if (vector_nodos[i].get_identificador_nodo() == nodo.get_identificador_nodo())
-                {
-                    return true;
-                }
-            }
+    // bool Algoritmos_::comparar_vectores(vector<Nodo_> vector_inicial, vector<Nodo_> vector_solucion)
+    // {
+    //     if (vector_inicial.size() != vector_solucion.size())
+    //     {
+    //         return false;
+    //     }
+    //     else
+    //     {
+    //         for (int i = 0; i < vector_inicial.size(); i++)
+    //         {
+    //             if (vector_inicial[i].get_identificador_nodo() != vector_solucion[i].get_identificador_nodo())
+    //             {
+    //                 return false;
+    //             }
+    //         }
+    //         return true;
+    //     }
+    // }
 
-            return false;
-        }
-    }
+    // bool Algoritmos_::buscar_en_vector(Nodo_ nodo, vector<Nodo_> vector_nodos)
+    // {
+    //     if (vector_nodos.size() == 0)
+    //     {
+    //         return false;
+    //     }
+    //     else
+    //     {
+    //         for (int i = 0; i < vector_nodos.size(); i++)
+    //         {
+    //             if (vector_nodos[i].get_identificador_nodo() == nodo.get_identificador_nodo())
+    //             {
+    //                 return true;
+    //             }
+    //         }
 
-    float Algoritmos_::calcular_dispersion_media(vector<Nodo_> vector_nodos)
-    {
-        float suma = 0;
-        for (int i = 0; i < vector_nodos.size() - 1; i++)
-        {
-            for (int j = i + 1; j < vector_nodos.size(); j++)
-            {
-                Arista_ arista = vector_nodos[i].find_arista(vector_nodos[j].get_identificador_nodo());
-                suma += arista.get_coste_arista();
-            }
-        }
+    //         return false;
+    //     }
+    // }
+
+    // float Algoritmos_::calcular_dispersion_media(vector<Nodo_> vector_nodos)
+    // {
+    //     float suma = 0;
+    //     for (int i = 0; i < vector_nodos.size() - 1; i++)
+    //     {
+    //         for (int j = i + 1; j < vector_nodos.size(); j++)
+    //         {
+    //             Arista_ arista = vector_nodos[i].find_arista(vector_nodos[j].get_identificador_nodo());
+    //             suma += arista.get_coste_arista();
+    //         }
+    //     }
         
-        return (suma / vector_nodos.size());
-    }
+    //     return (suma / vector_nodos.size());
+    // }
 
     void Algoritmos_::imprimir_solucion(string cadena)
     {   
@@ -116,5 +157,5 @@
 
         cout << "}" << endl;
         cout << "Tiempo de CPU: " << cronometro.tiempo_transcurrido() << endl;
-        cout << "Dispersion media: " << dispersion_media << endl;
+        cout << "Diversidad maxima: " << diversidad << endl;
     }

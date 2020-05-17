@@ -32,12 +32,10 @@ class Gestor_Archivos_
     private:
         ifstream archivo1;
         ofstream archivo2;
-        vector<Arista_> vector_aristas;
 
     public:
         Gestor_Archivos_(string ,Grafo_ &);
 
         void cargar_datos(Grafo_ &);
-        void ordenar_aristas(int );
-        void mostrar_aristas(void);
+        void mostrar_coordenadas(vector<vector<float>>);
 };

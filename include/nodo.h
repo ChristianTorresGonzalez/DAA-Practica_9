@@ -19,7 +19,7 @@
 #include <iostream>
 #include <vector>
 
-#include "./arista.h"
+#include "./coordenada.h"
 
 using namespace std;
 
@@ -27,28 +27,16 @@ class Nodo_
 {
 	private:
 		short int nodo;
-		bool inspeccionado;
-		
-		vector<Arista_> aristas;
+		Coordenada_ coordenadas;
 		
 	public:
 		Nodo_(void);
-		Nodo_(int );
+		Nodo_(int , Coordenada_ );
 		
-		void insertar_identificador(int );	
-		void insertar_arista(Arista_ );
-		void insertar_inspeccionado(bool);
+		void insertar_identificador(int );
+		void insertar_coordenada(int , float );
 
 		int get_identificador_nodo(void);
-		int get_cantidad_aristas(void);
-
-		Arista_ find_arista(int );
-		
-		Arista_ get_arista(int );
-		int get_destino_arista(int );
-		float get_coste_arista(int );
-		
-		bool is_inspeccionado(void);
-		
-		bool operator ==(Nodo_ );
+		int get_cantidad_coordenadas(void);
+		float get_coordenada(int );
 };

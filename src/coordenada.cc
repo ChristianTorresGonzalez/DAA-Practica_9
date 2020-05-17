@@ -17,47 +17,46 @@
 #include <iostream>
 #include <vector>
 
-#include "../include/nodo.h"
+#include "../include/coordenada.h"
 
 using namespace std;
 
-	Nodo_::Nodo_(void):
-		nodo(0),
-		coordenadas()
-		{}
+	Coordenada_::Coordenada_(void)
+		{
+			coordenadas.resize(0);
+		}
+
+	Coordenada_::Coordenada_(int size)
+		{
+			coordenadas.resize(size);
+			for (int i = 0; i < size; i++)
+			{
+				coordenadas[i] = 0;
+				// insertar_coordenada(i, 0);
+			}
+		}
 		
-	Nodo_::Nodo_(int nodo, Coordenada_ coordenada):
-		nodo(nodo),
+	Coordenada_::Coordenada_(vector<float> coordenada):
 		coordenadas(coordenada)
 		{}	
 
 // ----------------------------------------------------------------------------------------------
 // ------------------------------Metodos insert para almacenar datos-----------------------------
 // ----------------------------------------------------------------------------------------------
-	void Nodo_::insertar_identificador(int identificador)
+	void Coordenada_::insertar_coordenada(int posicion, float x)
 	{
-		nodo = identificador;
-	}
-
-	void Nodo_::insertar_coordenada(int posicion, float x)
-	{
-		coordenadas.insertar_coordenada(posicion, x);
+		coordenadas[posicion] = x;
 	}
 
 // ---------------------------------------------------------------------------------------------
 // --------------------------------- Metodos getter de la clase --------------------------------
 // ---------------------------------------------------------------------------------------------	
-	int Nodo_::get_identificador_nodo(void)
+	int Coordenada_::get_cantidad_coordenadas(void)
 	{
-		return nodo;
-	}
-	
-	int Nodo_::get_cantidad_coordenadas(void)
-	{
-		return coordenadas.get_cantidad_coordenadas();
+		return coordenadas.size();
 	}
 
-	float Nodo_::get_coordenada(int posicion)
+	float Coordenada_::get_coordenada(int posicion)
 	{
-		return coordenadas.get_coordenada(posicion);
+		return coordenadas[posicion];
 	}

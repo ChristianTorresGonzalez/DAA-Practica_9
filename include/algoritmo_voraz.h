@@ -30,7 +30,10 @@ class Algoritmo_Voraz_ : public Algoritmos_
     public:
         Algoritmo_Voraz_(Grafo_ );
 
-        void resolver_algoritmo(void);
+        void resolver_algoritmo(int );
         
         float calcular_dispersion_maxima();
+        int calcular_posicion(Nodo_ , vector<Nodo_> );
+
+        void imprimir_soluciones(void);
 };

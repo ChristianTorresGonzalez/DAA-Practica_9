@@ -21,7 +21,7 @@
 #include <fstream>
 
 #include "nodo.h"
-#include "arista.h"
+#include "coordenada.h"
 
 using namespace std;
 
@@ -30,19 +30,20 @@ class Grafo_
 	public:
 		int numero_nodos;
 		vector<Nodo_> vector_nodos;
-		vector<Arista_> vector_aristas;
+		vector<vector<float>> vector_coordenadas;
 		
 	public:
 		Grafo_(void);
-		Grafo_(int , vector<Arista_> );
+		Grafo_(int , vector<vector<float>> );
 
 		void construir_nodos(void);
 		
-		void set_aristas(vector<Arista_> );
+		void set_aristas(vector<Coordenada_> );
 		void insertar_nodo(Nodo_ );
     
 		int get_numero_nodos(void);
 		Nodo_ get_nodo(int );
+		vector<Nodo_> get_vector_nodos(void);
 		
 		void imprimir_grafo(void);
 		void imprimir_costes(void);

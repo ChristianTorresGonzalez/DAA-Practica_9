@@ -26,57 +26,70 @@
         Algoritmos_(grafo)
         {}
 
-    void Algoritmo_Voraz_::resolver_algoritmo(void)
+    void Algoritmo_Voraz_::resolver_algoritmo(int tamano_soluciones)
     {
         cronometro.start();
-        Arista_ arista = calcular_arista_maxima();
+        
+        vector<Nodo_> elementos = grafo.get_vector_nodos();
+        vector_inicial.resize(0);
 
-        vector_inicial.push_back(grafo.get_nodo(arista.get_nodo_inicial() - 1));
-        vector_inicial.push_back(grafo.get_nodo(arista.get_nodo_destino() - 1));
-        grafo.vector_nodos.erase(grafo.vector_nodos.begin() + arista.get_nodo_inicial() - 1);
-        grafo.vector_nodos.erase(grafo.vector_nodos.begin() + arista.get_nodo_destino() - 2);
+        Nodo_ centro = calcular_centro(elementos);
 
-        dispersion_media = calcular_dispersion_media(vector_inicial);
-
-        while(comparar_vectores(vector_inicial, vector_solucion) == false)
+        while (vector_inicial.size() < tamano_soluciones)
         {
-            vector_solucion = vector_inicial;
-            float nueva_dispersion = calcular_dispersion_maxima();
+            Nodo_ nodo_lejano = calcular_distancia_maxima(centro, elementos);
+            int posicion = calcular_posicion(nodo_lejano, elementos);
 
-            if (nueva_dispersion >= dispersion_media)
-            {
-                dispersion_media = nueva_dispersion;
-                grafo.eliminar_nodo(vector_inicial[vector_inicial.size() - 1].get_identificador_nodo());
-            }
-            else
-            {
-                vector_inicial.erase(vector_inicial.begin() + vector_inicial.size());
-            }
+            vector_inicial.push_back(nodo_lejano);
+            elementos.erase(elementos.begin() + posicion);
+            
+            centro = calcular_centro(vector_inicial);
         }
 
+        vector_solucion = vector_inicial;
+        calcular_diversidad();
         cronometro.end();
     }
 
-    float Algoritmo_Voraz_::calcular_dispersion_maxima()
+    int Algoritmo_Voraz_::calcular_posicion(Nodo_ nodo, vector<Nodo_> elementos)
     {
-        float dispersion = 0;
-        Nodo_ nodo_maximo;
-
-        for (int i = 0; i < grafo.vector_nodos.size(); i++)            
+        int i = 0;
+        while (i < elementos.size())
         {
-            vector_inicial.push_back(grafo.get_nodo(i));
-            float nueva_dispersion = calcular_dispersion_media(vector_inicial);
-
-            if (nueva_dispersion >= dispersion)
+            if (elementos[i].get_identificador_nodo() == nodo.get_identificador_nodo())
             {
-                dispersion = nueva_dispersion;
-                nodo_maximo = grafo.get_nodo(i);
+                return i;
             }
 
-            vector_inicial.erase(vector_inicial.begin() + vector_inicial.size());
+            i++;
         }
-
-        vector_inicial.push_back(nodo_maximo);
-
-        return dispersion;
     }
+
+    void Algoritmo_Voraz_::imprimir_soluciones(void)
+    {
+        imprimir_solucion("Voraz");
+    }
+
+    // float Algoritmo_Voraz_::calcular_dispersion_maxima()
+    // {
+    //     float dispersion = 0;
+    //     Nodo_ nodo_maximo;
+
+    //     for (int i = 0; i < grafo.vector_nodos.size(); i++)            
+    //     {
+    //         vector_inicial.push_back(grafo.get_nodo(i));
+    //         float nueva_dispersion = calcular_dispersion_media(vector_inicial);
+
+    //         if (nueva_dispersion >= dispersion)
+    //         {
+    //             dispersion = nueva_dispersion;
+    //             nodo_maximo = grafo.get_nodo(i);
+    //         }
+
+    //         vector_inicial.erase(vector_inicial.begin() + vector_inicial.size());
+    //     }
+
+    //     vector_inicial.push_back(nodo_maximo);
+
+    //     return dispersion;
+    // }
