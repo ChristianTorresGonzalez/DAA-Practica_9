@@ -37,7 +37,6 @@ int main(int argc,char *argv[])
     Gestor_Archivos_ gestor_archivos(entrada, grafo);
     
     grafo.imprimir_grafo();
-    // grafo.imprimir_costes();
 
     int soluciones = 2;
     for (int i = 0; i < 4; i++)
