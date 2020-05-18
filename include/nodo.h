@@ -27,6 +27,7 @@ class Nodo_
 {
 	private:
 		short int nodo;
+        int tiempo_tabu;
 		Coordenada_ coordenadas;
 		
 	public:
@@ -35,8 +36,10 @@ class Nodo_
 		
 		void insertar_identificador(int );
 		void insertar_coordenada(int , float );
+		void insertar_tiempo_tabu(int );
 
 		int get_identificador_nodo(void);
 		int get_cantidad_coordenadas(void);
+		int get_tiempo_tabu(void);
 		float get_coordenada(int );
 };

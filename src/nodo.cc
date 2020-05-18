@@ -23,11 +23,13 @@ using namespace std;
 
 	Nodo_::Nodo_(void):
 		nodo(0),
+		tiempo_tabu(0),
 		coordenadas()
 		{}
 		
 	Nodo_::Nodo_(int nodo, Coordenada_ coordenada):
 		nodo(nodo),
+		tiempo_tabu(0),
 		coordenadas(coordenada)
 		{}	
 
@@ -43,6 +45,11 @@ using namespace std;
 	{
 		coordenadas.insertar_coordenada(posicion, x);
 	}
+	
+	void Nodo_::insertar_tiempo_tabu(int tiempo)
+	{
+		tiempo_tabu = tiempo;
+	}
 
 // ---------------------------------------------------------------------------------------------
 // --------------------------------- Metodos getter de la clase --------------------------------
@@ -55,6 +62,11 @@ using namespace std;
 	int Nodo_::get_cantidad_coordenadas(void)
 	{
 		return coordenadas.get_cantidad_coordenadas();
+	}
+
+	int Nodo_::get_tiempo_tabu(void)
+	{
+		return tiempo_tabu;
 	}
 
 	float Nodo_::get_coordenada(int posicion)
