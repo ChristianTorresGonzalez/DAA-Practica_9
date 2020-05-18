@@ -26,19 +26,18 @@ class Algoritmo_GRASP_ : public Algoritmos_
     private:
         int iteraciones;
         int size_lrc;
+        
         vector<Nodo_> vector_inicial;
-        vector<Nodo_> lrc;
+        vector<vector<Nodo_>> lrc;
 
     public:
-        Algoritmo_GRASP_(Grafo_ , int , int , int );
+        Algoritmo_GRASP_(Grafo_ , int , int );
 
         void resolver_algoritmo(int );
         void preprocesamiento(int );
-        void fase_constructiva(Nodo_ &);
-        bool post_procesamiento(Nodo_ &);
+        void fase_constructiva(vector<Nodo_> &);
+        bool post_procesamiento(vector<Nodo_> &, bool & );
         void actualizar_solucion();
 
-        vector<Nodo_> resolver_algoritmo(vector<Nodo_> &, int metodo);
-        void fase_constructiva_multiarranque(Nodo_ &);
-        bool post_procesamiento_multiarranque(Nodo_ &);
+        void imprimir_soluciones(void);
 };

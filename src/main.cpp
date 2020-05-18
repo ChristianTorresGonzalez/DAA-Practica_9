@@ -23,6 +23,7 @@
 #include "../include/algoritmo_voraz.h"
 #include "../include/algoritmo_voraz_nuevo.h"
 #include "../include/algoritmo_busqueda_local.h"
+#include "../include/algoritmo_grasp.h"
 
 using namespace std;
 
@@ -50,9 +51,9 @@ int main(int argc,char *argv[])
     cout << endl << "-------------------------------------------" << endl;
 
     soluciones = 2;
+    Algoritmo_Voraz_Nuevo_ algoritmo_nuevo(grafo);
     for (int i = 0; i < 4; i++)
     {
-        Algoritmo_Voraz_Nuevo_ algoritmo_nuevo(grafo);
         algoritmo_nuevo.resolver_algoritmo(soluciones);
         algoritmo_nuevo.imprimir_soluciones();
         soluciones++;
@@ -61,27 +62,32 @@ int main(int argc,char *argv[])
     cout << endl << "-------------------------------------------" << endl;
 
     soluciones = 2;
+    Algoritmo_BusquedaLocal_ algoritmo_busqueda_local(grafo);
     for (int i = 0; i < 4; i++)
     {
-        Algoritmo_BusquedaLocal_ algoritmo_busqueda_local(grafo);
         algoritmo_busqueda_local.resolver_algoritmo(soluciones);
         algoritmo_busqueda_local.imprimir_soluciones();
         soluciones++;
     }
 
-    // cout << endl << "-------------------------------------------" << endl;
+    cout << endl << "-------------------------------------------" << endl;
 
-    // int size_lrc, iteraciones = 0;
-    // cout << "Introduzca tamaño de lrc: ";
-    // cin >> size_lrc;
-    // cout << "Introduzca numero de iteraciones: ";
-    // cin >> iteraciones;
-    // for (int i = 0; i < 5; i++)
-    // {
-    //     Algoritmo_GRASP_ algoritmo_grasp(grafo, size_lrc, 0, iteraciones);  // 3: tamaño de lrc, 
-    //     algoritmo_grasp.resolver_algoritmo(0);
-    //     algoritmo_grasp.imprimir_solucion("GRASP");
-    // }
+    soluciones = 2;
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 10; j <= 20; j = 2*j)
+        {
+            for (int k = 2; k <= 3; k++)
+            {
+                Algoritmo_GRASP_ algoritmo_grasp(grafo, k, j); 
+                algoritmo_grasp.resolver_algoritmo(soluciones);
+                algoritmo_grasp.imprimir_soluciones();
+                soluciones++;
+            }
+        }
+
+        soluciones = 2;
+    }
 
     // cout << endl << "-------------------------------------------" << endl;
 

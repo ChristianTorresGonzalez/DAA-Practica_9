@@ -21,7 +21,7 @@
 
 #include "../include/algoritmo_grasp.h"    
     
-    Algoritmo_GRASP_::Algoritmo_GRASP_(Grafo_ grafo, int size, int opcion, int iteraciones):
+    Algoritmo_GRASP_::Algoritmo_GRASP_(Grafo_ grafo, int size, int iteraciones):
         iteraciones(iteraciones),
         size_lrc(size),
         lrc(),
@@ -31,28 +31,41 @@
     void Algoritmo_GRASP_::resolver_algoritmo(int tamano_soluciones)
     {
         cronometro.start();
-        vector_solucion.resize(0);
+        vector_inicial.resize(0);
         int repeticiones = 0;
 
-        preprocesamiento();
+        preprocesamiento(tamano_soluciones);
+        vector_solucion = vector_inicial;
+        calcular_diversidad(diversidad, vector_inicial);
+        
+        lrc.resize(tamano_soluciones);
+        vector<Nodo_> solucion_candidata;
+        bool cambio = false;
 
-        while (vector_inicial.size() < tamano_soluciones)
+        fase_constructiva(solucion_candidata);
+        post_procesamiento(solucion_candidata, cambio);
+        actualizar_solucion();
+
+        while(repeticiones < iteraciones - 1)
         {
-            calcular_diversidad(diversidad, vector_inicial);
-
-            while(repeticiones < iteraciones)
+            if (cambio == true)
             {
-                lrc.resize(0);
-                Nodo_ nodo;
-
-                fase_constructiva(nodo);
-                post_procesamiento(nodo);
-                actualizar_solucion();
-
-                repeticiones++;
+                lrc.resize(tamano_soluciones);
             }
+
+            if (cambio == true)
+            {
+                fase_constructiva(solucion_candidata);
+            }
+
+            post_procesamiento(solucion_candidata, cambio);
+            actualizar_solucion();
+
+            repeticiones++;
         }
 
+        diversidad = 0;
+        calcular_diversidad(diversidad, vector_solucion);
         cronometro.end();
     }
 
@@ -69,67 +82,61 @@
         }
     }
 
-    void Algoritmo_GRASP_::fase_constructiva(Nodo_ &nodo)
+    void Algoritmo_GRASP_::fase_constructiva(vector<Nodo_> &solucion_candidata)
     {
-        int i, j = 0;
-        while(j < grafo.vector_nodos.size())
+        vector<float> diversidades(lrc.size());
+
+        for (int i = 0; i < vector_inicial.size(); i++)
         {
-            if (i < size_lrc)
+            vector<Nodo_> auxiliar = vector_inicial;
+
+            for (int j = 0; j < grafo.get_vector_nodos().size(); j++)
             {
-                lrc.push_back(grafo.get_nodo(j));
-                i++;
-                j++;
-            }
-            else
-            {
-                i = 0;
-                bool cambiado = false;
-                while(!cambiado || i < lrc.size())
+                float diversidad_parcial = 0;
+                auxiliar[i] = grafo.get_nodo(j);
+                calcular_diversidad(diversidad_parcial, auxiliar);
+
+                int k = 0;
+                while (k < diversidades.size())
                 {
-                    vector_inicial.push_back(lrc[i]);
-                    float diversidad_anterior = calcular_diversidad(vector_inicial);
-                    vector_inicial.erase(vector_inicial.begin() + vector_inicial.size());
-
-                    vector_inicial.push_back(grafo.get_nodo(j));
-                    int diversidad_siguiente = calcular_diversidad(vector_inicial);
-                    vector_inicial.erase(vector_inicial.begin() + vector_inicial.size());
-
-                    if (diversidad_siguiente >= diversidad_anterior)
+                    if (diversidad_parcial > diversidades[k])
                     {
-                        lrc[i] = grafo.get_nodo(j);
-                        cambiado = true;
-                    }                    
+                        diversidades[k] = diversidad_parcial;
+                        lrc[k] = auxiliar;
+                        break;
+                    }
 
-                    i++;
+                    k++;
                 }
-            }     
+            }
         }
 
-        nodo = lrc[rand() % lrc.size()];
+        solucion_candidata = lrc[rand() % lrc.size()];
     }
 
-    bool Algoritmo_GRASP_::post_procesamiento(Nodo_ &nodo)
+    bool Algoritmo_GRASP_::post_procesamiento(vector<Nodo_> &solucion_candidata, bool &cambio)
     {
-        vector_inicial.push_back(nodo);
+        float  diversidad_parcial;
+        calcular_diversidad(diversidad_parcial, solucion_candidata);
 
-        float nueva_dispersion = calcular_dispersion_media(vector_inicial);
-
-        if (nueva_dispersion >= dispersion_media)
+        if (diversidad_parcial > diversidad)
         {
-            dispersion_media = nueva_dispersion;
-            grafo.eliminar_nodo(vector_inicial[vector_inicial.size() - 1].get_identificador_nodo());
-
-            return true;
+            cambio = true;
+            vector_inicial = solucion_candidata;
         }
         else
         {
-            vector_inicial.erase(vector_inicial.begin() + vector_inicial.size());
-
-            return false;
+            cambio = false;
         }
+        
     }
 
     void Algoritmo_GRASP_::actualizar_solucion()
     {
         vector_solucion = vector_inicial;
+    }
+
+    void Algoritmo_GRASP_::imprimir_soluciones(void)
+    {
+        imprimir_solucion("GRASP");
     }

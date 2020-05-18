@@ -25,6 +25,7 @@
 class Algoritmo_Voraz_Nuevo_ : public Algoritmos_
 {
     private:
+        int iteraciones_maximas;
         vector<Nodo_> vector_inicial;
 
     public:

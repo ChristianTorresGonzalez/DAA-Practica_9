@@ -30,7 +30,7 @@
         cronometro.start();
         vector_inicial.resize(0);
         int repeticiones = 0;
-
+        
         preprocesamiento(tamano_soluciones);
         calcular_diversidad(diversidad, vector_inicial);
         vector_solucion = vector_inicial;
@@ -55,6 +55,8 @@
             }
         }
 
+        diversidad = 0;
+        calcular_diversidad(diversidad, vector_solucion);
         cronometro.end();
     }
 

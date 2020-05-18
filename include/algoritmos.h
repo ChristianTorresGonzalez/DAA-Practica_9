@@ -32,8 +32,9 @@ class Algoritmos_ {
         float diversidad;
         int tiempo_cpu;
 
-        vector<Nodo_> vector_solucion;
         vector<Nodo_> vector_inicial;
+        vector<Nodo_> vector_solucion;
+        
         Grafo_ grafo;
 
         Cronometro_ cronometro;

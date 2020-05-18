@@ -24,13 +24,14 @@
     
     Algoritmo_Voraz_Nuevo_::Algoritmo_Voraz_Nuevo_(Grafo_ grafo):
         Algoritmos_(grafo)
-        {}
+        {
+            preprocesamiento(2);
+        }
 
     void Algoritmo_Voraz_Nuevo_::resolver_algoritmo(int tamano_soluciones)
     {
         cronometro.start();
 
-        preprocesamiento(2);
         Nodo_ punto_referencia = grafo.get_nodo(rand() % grafo.get_vector_nodos().size());
         Nodo_ centro = calcular_centro(vector_inicial);
 
@@ -43,6 +44,7 @@
         }
 
         vector_solucion = vector_inicial;
+        diversidad = 0;
         calcular_diversidad(diversidad, vector_solucion);
         cronometro.end();
     }
@@ -59,7 +61,7 @@
 
     Nodo_ Algoritmo_Voraz_Nuevo_::calcular_punto_lejano(Nodo_ centro, Nodo_ &punto_referencia)
     {
-        const int iteraciones_maximas = 10;
+        iteraciones_maximas = grafo.get_numero_nodos();
         float distancia_maxima = 0;
         int iteraciones = 0;
         float distancia_referencia = calcular_distancia(centro, punto_referencia);
