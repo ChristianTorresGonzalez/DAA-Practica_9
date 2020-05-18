@@ -38,48 +38,48 @@ int main(int argc,char *argv[])
     Grafo_ grafo;
     Gestor_Archivos_ gestor_archivos(entrada, grafo);
     
-    // grafo.imprimir_grafo();
+    grafo.imprimir_grafo();
 
-    // for (int soluciones = 2; soluciones <= 5; soluciones++)
-    // {
-    //     Algoritmo_Voraz_ algoritmo(grafo);
-    //     algoritmo.resolver_algoritmo(soluciones);
-    //     algoritmo.imprimir_solucion("VORAZ");
-    // }
+    for (int soluciones = 2; soluciones <= 5; soluciones++)
+    {
+        Algoritmo_Voraz_ algoritmo(grafo);
+        algoritmo.resolver_algoritmo(soluciones);
+        algoritmo.imprimir_solucion("VORAZ");
+    }
 
-    // cout << endl << "-------------------------------------------" << endl;
+    cout << endl << "-------------------------------------------" << endl;
 
-    // Algoritmo_Voraz_Nuevo_ algoritmo_nuevo(grafo);
-    // for (int soluciones = 2; soluciones <= 5; soluciones++)
-    // {
-    //     algoritmo_nuevo.resolver_algoritmo(soluciones);
-    //     algoritmo_nuevo.imprimir_soluciones();
-    // }
+    Algoritmo_Voraz_Nuevo_ algoritmo_nuevo(grafo);
+    for (int soluciones = 2; soluciones <= 5; soluciones++)
+    {
+        algoritmo_nuevo.resolver_algoritmo(soluciones);
+        algoritmo_nuevo.imprimir_soluciones();
+    }
 
-    // cout << endl << "-------------------------------------------" << endl;
+    cout << endl << "-------------------------------------------" << endl;
 
-    // Algoritmo_BusquedaLocal_ algoritmo_busqueda_local(grafo);
-    // for (int soluciones = 2; soluciones <= 5; soluciones++)
-    // {
-    //     algoritmo_busqueda_local.resolver_algoritmo(soluciones);
-    //     algoritmo_busqueda_local.imprimir_soluciones();
-    // }
+    Algoritmo_BusquedaLocal_ algoritmo_busqueda_local(grafo);
+    for (int soluciones = 2; soluciones <= 5; soluciones++)
+    {
+        algoritmo_busqueda_local.resolver_algoritmo(soluciones);
+        algoritmo_busqueda_local.imprimir_soluciones();
+    }
 
-    // cout << endl << "-------------------------------------------" << endl;
+    cout << endl << "-------------------------------------------" << endl;
 
-    // // soluciones = 2;
-    // for (int soluciones = 2; soluciones <= 5; soluciones++)
-    // {
-    //     for (int j = 10; j <= 20; j = 2*j)
-    //     {
-    //         for (int k = 2; k <= 3; k++)
-    //         {
-    //             Algoritmo_GRASP_ algoritmo_grasp(grafo, k, j); 
-    //             algoritmo_grasp.resolver_algoritmo(soluciones);
-    //             algoritmo_grasp.imprimir_soluciones();    
-    //         }
-    //     }
-    // }
+    // soluciones = 2;
+    for (int soluciones = 2; soluciones <= 5; soluciones++)
+    {
+        for (int j = 10; j <= 20; j = 2*j)
+        {
+            for (int k = 2; k <= 3; k++)
+            {
+                Algoritmo_GRASP_ algoritmo_grasp(grafo, k, j); 
+                algoritmo_grasp.resolver_algoritmo(soluciones);
+                algoritmo_grasp.imprimir_soluciones();    
+            }
+        }
+    }
 
     cout << endl << "-------------------------------------------" << endl;
 
@@ -95,22 +95,4 @@ int main(int argc,char *argv[])
             }
         }
     }
-
-    // cout << endl << "-------------------------------------------" << endl;
-
-    // for (int i = 0; i < 5; i++)
-    // {
-    //     Algoritmo_VNS_ algoritmo_vns(grafo);
-    //     algoritmo_vns.resolver_algoritmo(1000, 3, 0);
-    //     algoritmo_vns.imprimir_solucion("VNS");
-    // }
-    
-    // cout << endl << "-------------------------------------------" << endl;
-
-    // for (int i = 0; i < 5; i++)
-    // {
-    //     Algoritmo_Modificacion_ algoritmo_modificacion(grafo);
-    //     algoritmo_modificacion.resolver_algoritmo(1000, 2, 0);
-    //     algoritmo_modificacion.imprimir_solucion("Modificacion");
-    // }
 }
